@@ -12,19 +12,19 @@ class NewPoiInput extends Component {
 
         this.state = {
             newPoiInfo:{
-                placeName: '',
+                name: '',
                 street: '',
                 lat: '',
-                lng: '',
-                type: ''
+                lon: '',
+                amenity: ''
             },
             //show red border if input is empty
             errors: {
-                placeNameError: false,
+                nameError: false,
                 streetError: false,
                 latError: false,
-                lngError: false,
-                typeError: false
+                lonError: false,
+                amenityError: false
             }
         }
     }
@@ -53,7 +53,7 @@ class NewPoiInput extends Component {
             this.props.pushNewPoiInState(data[0]);
 
             //clear all inputs
-            this.props.clearLatLngInputs();
+            this.props.clearLatLonInputs();
             this.deleteInputs();
         });
     }
@@ -61,31 +61,31 @@ class NewPoiInput extends Component {
     //helper function for delete inputs
     deleteInputs = () => {
         let clearState = this.state.newPoiInfo;
-        clearState.placeName= '';
+        clearState.name= '';
         clearState.street = '';
-        clearState.type = '';
+        clearState.amenity = '';
         this.setState({newPoiInfo: clearState})
     }
 
     formValidation = () => {
-        //set value for lat i lng
+        //set value for lat i lon
         let newPoiWithAllInfo = this.state.newPoiInfo;
-        newPoiWithAllInfo.lat = this.props.newPoiLatLng.lat;
-        newPoiWithAllInfo.lng = this.props.newPoiLatLng.lng;
+        newPoiWithAllInfo.lat = this.props.newPoiLatLon.lat;
+        newPoiWithAllInfo.lon = this.props.newPoiLatLon.lon;
         this.setState({
             newPoiInfo: newPoiWithAllInfo
         })
         
         //form validation
-        let { placeName, street, lat, lng, type } = this.state.newPoiInfo;
+        let { name, street, lat, lon, amenity } = this.state.newPoiInfo;
 
         //first remove error class from element
         this.removeErrorClassFromElements();
 
-        if( placeName === '' || street === '' || lat === '' ||  lng === '' || type === '') {
+        if( name === '' || street === '' || lat === '' ||  lon === '' || amenity === '') {
 
-            if(placeName === ''){
-                this.setErrorClassOnSpecificElement('placeNameError')
+            if(name === ''){
+                this.setErrorClassOnSpecificElement('nameError')
             }
             if(street === ''){
                 this.setErrorClassOnSpecificElement('streetError')
@@ -93,11 +93,11 @@ class NewPoiInput extends Component {
             if(lat === ''){
                 this.setErrorClassOnSpecificElement('latError')
             }
-            if(lng === ''){
-                this.setErrorClassOnSpecificElement('lngError')
+            if(lon === ''){
+                this.setErrorClassOnSpecificElement('lonError')
             }
-            if(type === ''){
-                this.setErrorClassOnSpecificElement('typeError')
+            if(amenity === ''){
+                this.setErrorClassOnSpecificElement('amenityError')
             }
 
             return false;
@@ -147,11 +147,11 @@ class NewPoiInput extends Component {
                             <Col md={2}>
                                 <Form.Label>Place name:</Form.Label>
                                 <Form.Control
-                                    className = {this.state.errors.placeNameError ? 'inputError' : ''} 
+                                    className = {this.state.errors.nameError ? 'inputError' : ''} 
                                     type="text" 
-                                    id="placeName"
+                                    id="name"
                                     placeholder="Place name"
-                                    value = {this.state.newPoiInfo.placeName}
+                                    value = {this.state.newPoiInfo.name}
                                     onChange = {this.updateNewPoiInfo} 
                                 />
                             </Col>
@@ -173,32 +173,32 @@ class NewPoiInput extends Component {
                                 type="number" 
                                 placeholder="lat"
                                 id="inputLat"
-                                value={this.props.newPoiLatLng.lat}
-                                onChange = {this.props.setLatLngOfNewPoi}
+                                value={this.props.newPoiLatLon.lat}
+                                onChange = {this.props.setLatLonOfNewPoi}
                                 />
                             </Col>
                             <Col md={2}>
                                 <Form.Label>Longitude:</Form.Label>
                                 <Form.Control 
-                                className = {this.state.errors.lngError ? 'inputError' : ''}
+                                className = {this.state.errors.lonError ? 'inputError' : ''}
                                 type="number" 
-                                placeholder="lng"
-                                id="inputLng"
-                                value={this.props.newPoiLatLng.lng}
-                                onChange = {this.props.setLatLngOfNewPoi} 
+                                placeholder="lon"
+                                id="inputLon"
+                                value={this.props.newPoiLatLon.lon}
+                                onChange = {this.props.setLatLonOfNewPoi} 
                                 />
                             </Col>
                             <Col md={2}>
-                            <Form.Label>Type:</Form.Label>
+                            <Form.Label>Amenity:</Form.Label>
                                 {/* value atribute reset select option if value is empty string, help for clear input after send data to server */}
                                 <Form.Control 
                                 as="select" 
                                 custom
-                                className = {this.state.errors.typeError ? 'inputError' : ''} 
-                                id="type" 
-                                value={this.state.newPoiInfo.type} 
+                                className = {this.state.errors.amenityError ? 'inputError' : ''} 
+                                id="amenity" 
+                                value={this.state.newPoiInfo.amenity} 
                                 onChange={this.updateNewPoiInfo}>
-                                    <option hidden>Select type</option>
+                                    <option hidden>Select amenity</option>
                                     <option>Cafe</option>
                                     <option>Restaurant</option>
                                     <option>Hotel</option>

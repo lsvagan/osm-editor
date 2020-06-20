@@ -12,33 +12,33 @@ import NewPoiInput from './NewPoiInput';
       this.state = {
       newPoi: {
         lat: '',
-        lng: ''
+        lon: ''
       }
       };
     }
 
-    //clear value of lat and lng, after adding poi action
-    clearLatLngInputs = () => {
+    //clear value of lat and lon, after adding poi action
+    clearLatLonInputs = () => {
       let newPoi = this.state.newPoi;
       newPoi.lat = '';
-      newPoi.lng = '';
+      newPoi.lon = '';
 
       this.setState({
         newPoi: newPoi
       })
     }
   
-    setLatLngOfNewPoi = (e) => {
+    setLatLonOfNewPoi = (e) => {
       
       let updatedPoi;
 
-      // statement where we set lat lng using onChange event in form inputs
+      // statement where we set lat lon using onChange event in form inputs
       if(e.target.id){
 
         if(e.target.id === "inputLat"){
           updatedPoi = {
             lat: e.target.value,
-            lng: this.state.newPoi.lng
+            lon: this.state.newPoi.lon
           }
           this.setState({
             newPoi : updatedPoi
@@ -47,7 +47,7 @@ import NewPoiInput from './NewPoiInput';
         }else{
           updatedPoi = {
             lat: this.state.newPoi.lat,
-            lng: e.target.value
+            lon: e.target.value
           }
           this.setState({
             newPoi : updatedPoi
@@ -55,13 +55,13 @@ import NewPoiInput from './NewPoiInput';
           return true;
         }
       }
-      let latValue = e.latlng.lat.toFixed(4);
-      let lngValue  = e.latlng.lng.toFixed(4);
-      //set lat lng using onClick event on map
+      let latValue = e.latlng.lat.toFixed(7);
+      let lonValue  = e.latlng.lng.toFixed(7);
+      //set lat lon using onClick event on map
       this.setState({
         newPoi : {
           lat: latValue,
-          lng: lngValue
+          lon: lonValue
         }
       })
       console.log(e)
@@ -76,7 +76,7 @@ import NewPoiInput from './NewPoiInput';
           <Map className="leflet-map"
             center={[44.8110, 20.4625]}
             zoom={13}
-            onClick={this.setLatLngOfNewPoi}
+            onClick={this.setLatLonOfNewPoi}
             >
               <TileLayer
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -85,15 +85,15 @@ import NewPoiInput from './NewPoiInput';
 
               <OpenStreetMapMarker pois = {this.props.pois} />
               <NewPoiMarker newPoi = {this.state.newPoi} />
-              <Search showSearchPoi = {this.setLatLngOfNewPoi} />
+              <Search setLatLonOfNewPoi = {this.setLatLonOfNewPoi} />
 
           </Map>
 
           <NewPoiInput
-            setLatLngOfNewPoi={this.setLatLngOfNewPoi}
-            newPoiLatLng={ this.state.newPoi }
+            setLatLonOfNewPoi={this.setLatLonOfNewPoi}
+            newPoiLatLon={ this.state.newPoi }
             pushNewPoiInState = {this.props.pushNewPoiInState}
-            clearLatLngInputs = {this.clearLatLngInputs}
+            clearLatLonInputs = {this.clearLatLonInputs}
           />
         </div>
       );

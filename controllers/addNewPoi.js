@@ -1,12 +1,12 @@
 const addNewPoi = (req, res, db) => {
 
-    let { placeName, street, lat, lng, type } = req.body;
+    let { name, street, lat, lon, amenity } = req.body;
     let post = {
-        placeName: placeName,
+        name: name,
         street: street,
         lat: lat,
-        lng: lng,
-        type: type
+        lon: lon,
+        amenity: amenity
     };
 
     let sql = 'INSERT INTO poi SET ?';
@@ -26,7 +26,7 @@ const addNewPoi = (req, res, db) => {
 }
 
 const selectNewestPoiFromDataBase = (poiId, db, response) => {
-    let sql = 'SELECT * FROM poi WHERE id = ?';
+    let sql = 'SELECT id, name, street, amenity, lat, lon FROM poi WHERE id = ?';
     db.query(sql, poiId, (err, result) => {
         if(err){
             console.log(err);

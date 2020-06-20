@@ -15,12 +15,12 @@ function OpenStreetMapMarker (props) {
             if(poi.showOnMap){
                 return(
                     <Marker 
-                        position={[poi.lat, poi.lng]}
+                        position={[poi.lat, poi.lon]}
                         icon = {mapPointer}
                         key = {poi.id}
                         >
                         <Popup popupOpen={true}>
-                            {poi.placeName}
+                            {poi.name}
                         </Popup>
                     </Marker>
                 )

@@ -26,17 +26,17 @@ class TableOfPoi extends Component  {
         const poisList = pois.map((poi) => {
             return (
                 <tr key= {poi.id}>
-                    <td>{poi.placeName}</td>
+                    <td>{poi.name}</td>
                     <td>{poi.street}</td>
-                    <td>{poi.type}</td>
+                    <td>{poi.amenity}</td>
                     <td>{poi.lat}</td>
-                    <td>{poi.lng}</td>
+                    <td>{poi.lon}</td>
                     <td>
                         <input type="checkbox" onClick={(e) => showHidePoi(e, poi.id)} />
                     </td>
                     <td>
                         <RemovingDialog 
-                            poiPlaceName = {poi.placeName} 
+                            poiName = {poi.name} 
                             poiStreet = {poi.street}
                             poiId = {poi.id}
                             removePoiFun = { this.removePoiFun }
@@ -53,7 +53,7 @@ class TableOfPoi extends Component  {
                     <tr>
                         <th>Place name</th>
                         <th>Street</th>
-                        <th>Type</th>
+                        <th>Amenity</th>
                         <th>Latitude</th>
                         <th>Longitude</th>
                         <th>Show on map</th>

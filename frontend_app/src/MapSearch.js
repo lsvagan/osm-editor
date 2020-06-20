@@ -6,7 +6,7 @@ import { withLeaflet } from "react-leaflet";
 class Search extends Component {
   componentDidMount() {
     //my custom function to add new marker
-    const customMarker = this.props.showSearchPoi;
+    const customMarker = this.props.setLatLonOfNewPoi;
 
     const map = this.props.leaflet.map;
     const southWest = L.latLng(44.66767620116956, 20.15161381933688);
