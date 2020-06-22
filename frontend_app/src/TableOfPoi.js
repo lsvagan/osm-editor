@@ -27,7 +27,7 @@ class TableOfPoi extends Component  {
             return (
                 <tr key= {poi.id}>
                     <td>{poi.name}</td>
-                    <td>{poi.street}</td>
+                    <td>{`${poi.street} ${poi.housenumber}`}</td>
                     <td>{poi.amenity}</td>
                     <td>{poi.lat}</td>
                     <td>{poi.lon}</td>

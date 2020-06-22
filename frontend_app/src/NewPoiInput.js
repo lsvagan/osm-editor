@@ -14,6 +14,7 @@ class NewPoiInput extends Component {
             newPoiInfo:{
                 name: '',
                 street: '',
+                housenumber: '',
                 lat: '',
                 lon: '',
                 amenity: ''
@@ -22,6 +23,7 @@ class NewPoiInput extends Component {
             errors: {
                 nameError: false,
                 streetError: false,
+                housenumberError: false,
                 latError: false,
                 lonError: false,
                 amenityError: false
@@ -77,12 +79,12 @@ class NewPoiInput extends Component {
         })
         
         //form validation
-        let { name, street, lat, lon, amenity } = this.state.newPoiInfo;
+        let { name, street, housenumber, lat, lon, amenity } = this.state.newPoiInfo;
 
         //first remove error class from element
         this.removeErrorClassFromElements();
 
-        if( name === '' || street === '' || lat === '' ||  lon === '' || amenity === '') {
+        if( name === '' || street === '' || housenumber === '' || lat === '' ||  lon === '' || amenity === '') {
 
             if(name === ''){
                 this.setErrorClassOnSpecificElement('nameError')
@@ -98,6 +100,9 @@ class NewPoiInput extends Component {
             }
             if(amenity === ''){
                 this.setErrorClassOnSpecificElement('amenityError')
+            }
+            if(housenumber === ''){
+                this.setErrorClassOnSpecificElement('housenumberError')
             }
 
             return false;
@@ -140,6 +145,11 @@ class NewPoiInput extends Component {
 
     render (){
         console.log('form render')
+        const amenityList = ['bar', 'cafe', 'restaurant', 'nightclub', 'fast food', 'school', 'university', 'parking', 'bank', 'post office', 'hospital',
+                            'cinema', 'marketplace', 'police', 'grave yard', 'sports centre'];
+        const amenityListOptions = amenityList.map((singleAmenity) => {
+            return <option>{singleAmenity}</option>
+        })
         return(
                 <Form>
                     <Form.Group>
@@ -155,7 +165,7 @@ class NewPoiInput extends Component {
                                     onChange = {this.updateNewPoiInfo} 
                                 />
                             </Col>
-                            <Col md={3}>
+                            <Col md={2}>
                                 <Form.Label>Street:</Form.Label>
                                 <Form.Control
                                     className = {this.state.errors.streetError ? 'inputError' : ''}
@@ -163,6 +173,17 @@ class NewPoiInput extends Component {
                                     id="street"
                                     placeholder="Street"
                                     value = {this.state.newPoiInfo.street}
+                                    onChange = {this.updateNewPoiInfo}
+                                />
+                            </Col>
+                            <Col md={1}>
+                                <Form.Label>Number:</Form.Label>
+                                <Form.Control
+                                    className = {this.state.errors.housenumberError ? 'inputError' : ''}
+                                    type="text"
+                                    id="housenumber"
+                                    placeholder="Num"
+                                    value = {this.state.newPoiInfo.housenumber}
                                     onChange = {this.updateNewPoiInfo}
                                 />
                             </Col>
@@ -191,7 +212,7 @@ class NewPoiInput extends Component {
                             <Col md={2}>
                             <Form.Label>Amenity:</Form.Label>
                                 {/* value atribute reset select option if value is empty string, help for clear input after send data to server */}
-                                <Form.Control 
+                                <Form.Control
                                 as="select" 
                                 custom
                                 className = {this.state.errors.amenityError ? 'inputError' : ''} 
@@ -199,11 +220,7 @@ class NewPoiInput extends Component {
                                 value={this.state.newPoiInfo.amenity} 
                                 onChange={this.updateNewPoiInfo}>
                                     <option hidden>Select amenity</option>
-                                    <option>Cafe</option>
-                                    <option>Restaurant</option>
-                                    <option>Hotel</option>
-                                    <option>Sport object</option>
-                                    <option>Shopping center</option>
+                                    { amenityListOptions }
                                 </Form.Control>
                             </Col>
                             <Col ms={1} className="d-flex  align-items-end">
