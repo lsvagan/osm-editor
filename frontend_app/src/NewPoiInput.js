@@ -65,6 +65,7 @@ class NewPoiInput extends Component {
         let clearState = this.state.newPoiInfo;
         clearState.name= '';
         clearState.street = '';
+        clearState.housenumber = '';
         clearState.amenity = '';
         this.setState({newPoiInfo: clearState})
     }
@@ -145,10 +146,10 @@ class NewPoiInput extends Component {
 
     render (){
         console.log('form render')
-        const amenityList = ['bar', 'cafe', 'restaurant', 'nightclub', 'fast food', 'school', 'university', 'parking', 'bank', 'post office', 'hospital',
-                            'cinema', 'marketplace', 'police', 'grave yard', 'sports centre'];
+        const amenityList = ['bar', 'cafe', 'restaurant', 'nightclub', 'gambling', 'fast food', 'school', 'university', 'parking', 'bus station','bank', 'post office', 'studio', 'hospital',
+                            'cinema', 'marketplace', 'police', 'grave yard'];
         const amenityListOptions = amenityList.map((singleAmenity) => {
-            return <option>{singleAmenity}</option>
+            return <option key={singleAmenity}>{singleAmenity}</option>
         })
         return(
                 <Form>

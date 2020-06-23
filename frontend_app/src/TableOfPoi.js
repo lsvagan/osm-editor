@@ -29,8 +29,8 @@ class TableOfPoi extends Component  {
                     <td>{poi.name}</td>
                     <td>{`${poi.street} ${poi.housenumber}`}</td>
                     <td>{poi.amenity}</td>
-                    <td>{poi.lat}</td>
-                    <td>{poi.lon}</td>
+                    <td>{poi.lat.toFixed(7)}</td>
+                    <td>{poi.lon.toFixed(7)}</td>
                     <td>
                         <input type="checkbox" onClick={(e) => showHidePoi(e, poi.id)} />
                     </td>

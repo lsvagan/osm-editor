@@ -73,6 +73,9 @@ class App extends Component {
             showHidePoi = {this.showHidePoi}
             removePoiFromState = {this.removePoiFromState}
           />
+          <a href='http://localhost:5000/osmChangeXml' target="blank">
+            Osm Change Xml
+          </a> 
         </Container>
       </div>
 
