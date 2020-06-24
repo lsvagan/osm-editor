@@ -28,7 +28,7 @@ function OpenStreetMapMarker (props) {
                 return null
             }
         })
-        console.log(pois)
+        
         return(
             <div>
                 {pois}

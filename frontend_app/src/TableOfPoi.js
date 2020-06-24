@@ -5,7 +5,6 @@ import RemovingDialog from './RemovingDialog'
 class TableOfPoi extends Component  {
 
     removePoiFun = (id) => {
-        //console.log(id);
         fetch('http://localhost:5000/removePoi', {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
@@ -15,7 +14,6 @@ class TableOfPoi extends Component  {
         })
         .then(result => {
             if(result.status === 200) {
-                //console.log('uspesno')
                 this.props.removePoiFromState(id);
             }
         })

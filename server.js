@@ -32,7 +32,7 @@ db.connect((err)=>{
     if(err){
         console.log(err);
     }else{
-        console.log('Mysql connect successfully..')
+        console.log('Mysql connected successfully..')
     }
 });
 

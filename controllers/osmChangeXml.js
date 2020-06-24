@@ -65,7 +65,6 @@ const osmChangeXml = (req, res, db, js2xmlparser) => {
                         } 
             };
             let generatedXml = js2xmlparser.parse('osmChange', xmlConstructor);
-            //console.log(generatedXml)
             res.set('Content-Type', 'text/xml');
             res.status(200).end(generatedXml);
         } //end of else

@@ -64,13 +64,11 @@ import NewPoiInput from './NewPoiInput';
           lon: lonValue
         }
       })
-      console.log(e)
-      console.log(e.latlng.lat, e.latlng.lng )
+      
     }
     
     render() {
       
-      console.log('maps render')
       return (
         <div>
           <Map className="leflet-map"

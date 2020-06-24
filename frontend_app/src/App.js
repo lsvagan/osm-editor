@@ -22,7 +22,7 @@ class App extends Component {
       pois.unshift(newPoiData);
       return { pois }
     })
-    //console.log('NEW POI', newPoiData)
+
   }
 
   removePoiFromState = (id) => {
@@ -35,7 +35,6 @@ class App extends Component {
   }
 
   showHidePoi = (e, idOfPoi) => {
-    console.log(e.target.checked, idOfPoi)
     let updatedShowMarker = this.state.pois;
     updatedShowMarker.forEach(function(poi){
       if(poi.id === idOfPoi){

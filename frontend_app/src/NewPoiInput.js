@@ -34,16 +34,14 @@ class NewPoiInput extends Component {
     }
 
     addNewPoi = (e) => {
-
         e.preventDefault();
 
         if(this.formValidation()){
             this.pushNewPoiToDatabase(this.state.newPoiInfo);
-        }else{
-            console.log('all inputs are required')
         }
 
     }
+
     handleSelectAmenity = (e) => {
         this.setState(prevState => {
             let newPoiInfo = Object.assign({}, prevState.newPoiInfo);
@@ -53,7 +51,6 @@ class NewPoiInput extends Component {
     }
 
     pushNewPoiToDatabase = (newPoi) => {
-        console.log('poi koji pushujemo: ', newPoi)
         fetch('http://localhost:5000/addPoi', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -123,8 +120,7 @@ class NewPoiInput extends Component {
     }
 
     updateNewPoiInfo = (e) => {
-        console.log(e.target.value);
-        console.log(e.target.id);
+
         let selector = e.target.id;
         let newValue = e.target.value;
         
@@ -154,12 +150,13 @@ class NewPoiInput extends Component {
     }
 
     render (){
-        console.log('form render')
+
         const amenityList = ['bar', 'cafe', 'restaurant', 'nightclub', 'gambling', 'fast food', 'school', 'university', 'parking', 'bus station','bank', 'post office', 'studio', 'hospital',
                             'cinema', 'marketplace', 'police', 'grave yard'];
         const amenityListOptions = amenityList.sort().map((singleAmenity) => {
             return <DropdownItem eventKey = {singleAmenity} key={singleAmenity}>{singleAmenity}</DropdownItem>
         })
+        
         return(
                 <Form>
                     <Form.Group>

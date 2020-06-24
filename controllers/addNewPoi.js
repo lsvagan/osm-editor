@@ -17,9 +17,7 @@ const addNewPoi = (req, res, db) => {
         if(err){
             console.log(err);
         }
-        console.log('result of insert action ', result.insertId);
         newestPoiId = result.insertId;
-        console.log('newestPoiID: ', newestPoiId)
         selectNewestPoiFromDataBase(newestPoiId, db, res);
 
     })
@@ -32,7 +30,6 @@ const selectNewestPoiFromDataBase = (poiId, db, response) => {
         if(err){
             console.log(err);
         }
-        console.log('rezultat selectije novog poia ', result)
         response.json(result);
     })
 }
