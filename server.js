@@ -23,8 +23,8 @@ const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     //password: 'your_password',
-    //dateStrings: true,
-    supportBigNumbers: true, //
+    supportBigNumbers: true,
+    timezone: 'utc',
     database: 'project_database'
 });
 
