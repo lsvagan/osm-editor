@@ -3,6 +3,8 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import DropdownItem from 'react-bootstrap/DropdownItem';
 
 import './NewPoiInput.css';
 
@@ -41,6 +43,13 @@ class NewPoiInput extends Component {
             console.log('all inputs are required')
         }
 
+    }
+    handleSelectAmenity = (e) => {
+        this.setState(prevState => {
+            let newPoiInfo = Object.assign({}, prevState.newPoiInfo);
+            newPoiInfo.amenity = e;             
+            return { newPoiInfo };                         
+        })
     }
 
     pushNewPoiToDatabase = (newPoi) => {
@@ -148,8 +157,8 @@ class NewPoiInput extends Component {
         console.log('form render')
         const amenityList = ['bar', 'cafe', 'restaurant', 'nightclub', 'gambling', 'fast food', 'school', 'university', 'parking', 'bus station','bank', 'post office', 'studio', 'hospital',
                             'cinema', 'marketplace', 'police', 'grave yard'];
-        const amenityListOptions = amenityList.map((singleAmenity) => {
-            return <option key={singleAmenity}>{singleAmenity}</option>
+        const amenityListOptions = amenityList.sort().map((singleAmenity) => {
+            return <DropdownItem eventKey = {singleAmenity} key={singleAmenity}>{singleAmenity}</DropdownItem>
         })
         return(
                 <Form>
@@ -211,18 +220,28 @@ class NewPoiInput extends Component {
                                 />
                             </Col>
                             <Col md={2}>
-                            <Form.Label>Amenity:</Form.Label>
-                                {/* value atribute reset select option if value is empty string, help for clear input after send data to server */}
-                                <Form.Control
-                                as="select" 
-                                custom
-                                className = {this.state.errors.amenityError ? 'inputError' : ''} 
-                                id="amenity" 
-                                value={this.state.newPoiInfo.amenity} 
-                                onChange={this.updateNewPoiInfo}>
-                                    <option hidden>Select amenity</option>
-                                    { amenityListOptions }
-                                </Form.Control>
+                            <Form.Label>Amenity:</Form.Label> 
+                                <div className="d-flex"> 
+                                    <Form.Control 
+                                    type="text" 
+                                    id="amenity"
+                                    className= {this.state.errors.amenityError ? 'inputError readOnlyAmenity' : 'readOnlyAmenity'} 
+                                    readOnly 
+                                    placeholder="Select amenity"
+                                    value = {this.state.newPoiInfo.amenity}>
+                                    </Form.Control>
+                                    <DropdownButton
+                                        variant="outline-primary"
+                                        alignRight
+                                        size="md"
+                                        title={""}
+                                        onSelect = {this.handleSelectAmenity}
+                                        >
+                                        
+                                            { amenityListOptions }
+                                       
+                                    </DropdownButton>
+                                </div>
                             </Col>
                             <Col ms={1} className="d-flex  align-items-end">
                                 <Button

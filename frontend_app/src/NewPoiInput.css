@@ -1,3 +1,28 @@
 .inputError {
     border: 2px solid red;
 }
+
+.form-control {
+    padding: 0.375em;
+}
+
+.dropdown-menu {
+    height: 160px;
+    overflow-y: scroll;
+}
+
+/* custom style for readOnlyAmenity fiel */
+.form-control[readonly].readOnlyAmenity {
+    background-color: transparent;
+    border-radius: 0.25em 0 0 0.25em;
+}
+
+/* disable outer border on focus, this fiel is readOnly */
+.readOnlyAmenity:focus {
+    box-shadow: none;
+    border: 1px solid #ced4da;
+}
+
+.dropdown button {
+    border-radius: 0 0.25em 0.25em 0;
+}
