@@ -1,3 +1,5 @@
+# use osm-editor-database.sql file in /db to setup database
+
 # Install dependencies for server
 npm install
 
