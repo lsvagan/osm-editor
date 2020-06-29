@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql');
-const cors = require('cors')
+const path = require('path');
+const cors = require('cors');
 const PORT = 5000;
 
 const js2xmlparser = require("js2xmlparser");
@@ -19,6 +20,9 @@ server.use(cors());
 //Body Parser Middleware
 server.use(express.json());
 
+//path Middleware
+server.use(express.static(path.join(__dirname, '/frontend_app/build')))
+
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -36,6 +40,11 @@ db.connect((err)=>{
     }
 });
 
+server.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '/frontend_app/build', 'index.html'));
+})
+
+//json API
 //gets all pois
 server.get('/getAllPois', (req, res) => { getAllPois(req, res, db) });
 
