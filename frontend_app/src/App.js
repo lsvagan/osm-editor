@@ -48,7 +48,7 @@ class App extends Component {
 
   componentDidMount(){
 
-    fetch('http://localhost:5000/', {
+    fetch('http://localhost:5000/getAllPois', {
       method: 'GET',
       headers: {'Content-Type': 'application/json'}
     })

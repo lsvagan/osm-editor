@@ -37,7 +37,7 @@ db.connect((err)=>{
 });
 
 //gets all pois
-server.get('/', (req, res) => { getAllPois(req, res, db) });
+server.get('/getAllPois', (req, res) => { getAllPois(req, res, db) });
 
 //post new poi
 server.post('/addPoi', (req, res) => { addNewPoi(req, res, db)});
