@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import DropdownItem from 'react-bootstrap/DropdownItem';
+import Dropdown from 'react-bootstrap/Dropdown'
 
 import './NewPoiInput.css';
 
@@ -151,8 +152,8 @@ class NewPoiInput extends Component {
 
     render (){
 
-        const amenityList = ['bar', 'cafe', 'restaurant', 'nightclub', 'gambling', 'fast food', 'school', 'university', 'parking', 'bus station','bank', 'post office', 'studio', 'hospital',
-                            'cinema', 'marketplace', 'police', 'grave yard'];
+        const amenityList = ['bar', 'cafe', 'restaurant', 'nightclub', 'gambling', 'fast_food', 'school', 'university', 'parking', 'bus_station','bank', 'post_office', 'studio', 'hospital',
+                            'cinema', 'marketplace', 'police', 'grave_yard'];
         const amenityListOptions = amenityList.sort().map((singleAmenity) => {
             return <DropdownItem eventKey = {singleAmenity} key={singleAmenity}>{singleAmenity}</DropdownItem>
         })
@@ -236,6 +237,8 @@ class NewPoiInput extends Component {
                                         >
                                         
                                             { amenityListOptions }
+                                            <Dropdown.Divider />
+                                            <DropdownItem eventKey = "other">other</DropdownItem>
                                        
                                     </DropdownButton>
                                 </div>
