@@ -22,7 +22,7 @@ const RemovingDialog = (props) => {
                 <Modal.Header closeButton>Are you sure that you want to remove POI?</Modal.Header>
                 <Modal.Body>
                     <em>Place name: </em> <strong>{props.poiName}</strong> <br />
-                    <em>Street: </em> <strong>{props.poiStreet}</strong>
+                    <em>Street: </em> <strong>{`${props.poiStreet} ${props.poiHousenumber}`}</strong>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

@@ -36,6 +36,7 @@ class TableOfPoi extends Component  {
                         <RemovingDialog 
                             poiName = {poi.name} 
                             poiStreet = {poi.street}
+                            poiHousenumber = {poi.housenumber}
                             poiId = {poi.id}
                             removePoiFun = { this.removePoiFun }
                         />
