@@ -8,7 +8,7 @@ const osmChangeXml = (req, res, db, js2xmlparser) => {
             let pois = result;
             
             let nodePois = pois.map((poi) => {
-                let timestampFormat = JSON.stringify(poi.timestamp);
+                let timestampFormat = JSON.stringify(poi.timestamp).replace(".000", "");
                 
                 return {
                     "@": {
