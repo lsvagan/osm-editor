@@ -55,7 +55,6 @@ class MapAndInputContainer extends Component {
       updatedLatLonOfNewPoi = {...this.state.newPoiInfo}
       updatedLatLonOfNewPoi.lat = e.latlng.lat.toFixed(7);
       updatedLatLonOfNewPoi.lon  = e.latlng.lng.toFixed(7);
-      console.log('executes')
       this.setState({
         newPoiInfo : updatedLatLonOfNewPoi 
       })
@@ -96,14 +95,13 @@ class MapAndInputContainer extends Component {
 
     //helper function for delete inputs after push new poi info to database
     deleteInputs = () => {
-        let clearState = this.state.newPoiInfo;
-        clearState.name= '';
-        clearState.street = '';
-        clearState.housenumber = '';
-        clearState.lat = '';
-        clearState.lon = '';
-        clearState.amenity = '';
-        this.setState({newPoiInfo: clearState})
+        this.setState(prevState => {
+            let newPoiInfo = Object.assign({}, prevState.newPoiInfo);
+            Object.keys(newPoiInfo).forEach((info) => {
+                newPoiInfo[info] = "";
+            })
+            return {newPoiInfo}
+        })
     }
 
     formValidation = () => {
