@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import OpenStreetMap from './OpenStreetMap';
 import TableOfPoi from './TableOfPoi';
 import './App.css';
 import Container from 'react-bootstrap/Container';
+import MapAndInputContainer from './MapAndInputContainer';
 
 class App extends Component {
 
@@ -63,7 +63,7 @@ class App extends Component {
 
       <div>
         <Container>
-          <OpenStreetMap
+          <MapAndInputContainer 
             pois = {this.state.pois}
             pushNewPoiInState = {this.pushNewPoiInState}
           />

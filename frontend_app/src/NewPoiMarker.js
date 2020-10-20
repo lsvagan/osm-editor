@@ -12,7 +12,7 @@ function NewPoiMarker (props) {
     
         return(
                 <Marker
-                    position={[props.newPoi.lat, props.newPoi.lon]}
+                    position={[props.newPoiInfo.lat, props.newPoiInfo.lon]}
                     icon = {mapPointer}
                 >
                 </Marker>

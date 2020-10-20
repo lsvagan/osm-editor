@@ -10,145 +10,6 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import './NewPoiInput.css';
 
 class NewPoiInput extends Component {
-    constructor() {
-        super();
-
-        this.state = {
-            newPoiInfo:{
-                name: '',
-                street: '',
-                housenumber: '',
-                lat: '',
-                lon: '',
-                amenity: ''
-            },
-            //show red border if input is empty
-            errors: {
-                nameError: false,
-                streetError: false,
-                housenumberError: false,
-                latError: false,
-                lonError: false,
-                amenityError: false
-            }
-        }
-    }
-
-    addNewPoi = (e) => {
-        e.preventDefault();
-
-        if(this.formValidation()){
-            this.pushNewPoiToDatabase(this.state.newPoiInfo);
-        }
-
-    }
-
-    handleSelectAmenity = (e) => {
-        this.setState(prevState => {
-            let newPoiInfo = Object.assign({}, prevState.newPoiInfo);
-            newPoiInfo.amenity = e;             
-            return { newPoiInfo };                         
-        })
-    }
-
-    pushNewPoiToDatabase = (newPoi) => {
-        fetch('http://localhost:5000/addPoi', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(newPoi)
-        })
-        .then(result => result.json())
-        .then(data => {
-            this.props.pushNewPoiInState(data[0]);
-
-            //clear all inputs
-            this.props.clearLatLonInputs();
-            this.deleteInputs();
-        });
-    }
-
-    //helper function for delete inputs
-    deleteInputs = () => {
-        let clearState = this.state.newPoiInfo;
-        clearState.name= '';
-        clearState.street = '';
-        clearState.housenumber = '';
-        clearState.amenity = '';
-        this.setState({newPoiInfo: clearState})
-    }
-
-    formValidation = () => {
-        //set value for lat i lon
-        let newPoiWithAllInfo = this.state.newPoiInfo;
-        newPoiWithAllInfo.lat = this.props.newPoiLatLon.lat;
-        newPoiWithAllInfo.lon = this.props.newPoiLatLon.lon;
-        this.setState({
-            newPoiInfo: newPoiWithAllInfo
-        })
-        
-        //form validation
-        let { name, street, housenumber, lat, lon, amenity } = this.state.newPoiInfo;
-
-        //first remove error class from element
-        this.removeErrorClassFromElements();
-
-        if( name === '' || street === '' || housenumber === '' || lat === '' ||  lon === '' || amenity === '') {
-
-            if(name === ''){
-                this.setErrorClassOnSpecificElement('nameError')
-            }
-            if(street === ''){
-                this.setErrorClassOnSpecificElement('streetError')
-            }
-            if(lat === ''){
-                this.setErrorClassOnSpecificElement('latError')
-            }
-            if(lon === ''){
-                this.setErrorClassOnSpecificElement('lonError')
-            }
-            if(amenity === ''){
-                this.setErrorClassOnSpecificElement('amenityError')
-            }
-            if(housenumber === ''){
-                this.setErrorClassOnSpecificElement('housenumberError')
-            }
-
-            return false;
-        }
-
-        //all inputs are valid, return true
-        return true;
-    }
-
-    updateNewPoiInfo = (e) => {
-
-        let selector = e.target.id;
-        let newValue = e.target.value;
-        
-        this.setState(prevState => {
-            let newPoiInfo = Object.assign({}, prevState.newPoiInfo);
-            newPoiInfo[selector] = newValue;             
-            return { newPoiInfo };                         
-        })
-    }
-
-    setErrorClassOnSpecificElement = (el) => {
-        this.setState(prevState => {
-            let errors = Object.assign({}, prevState.errors);
-            errors[el] = true;
-            return { errors };
-        })
-    }
-
-    removeErrorClassFromElements = () => {
-        this.setState(prevState => {
-            let errors = Object.assign({}, prevState.errors);
-            Object.keys(errors).forEach((key) => {
-                return errors[key] = false;
-            })
-            return { errors };
-        })
-    }
 
     render (){
 
@@ -165,55 +26,55 @@ class NewPoiInput extends Component {
                             <Col md={2}>
                                 <Form.Label>Place name:</Form.Label>
                                 <Form.Control
-                                    className = {this.state.errors.nameError ? 'inputError' : ''} 
+                                    className = {this.props.errors.nameError ? 'inputError' : ''} 
                                     type="text" 
                                     id="name"
                                     placeholder="Place name"
-                                    value = {this.state.newPoiInfo.name}
-                                    onChange = {this.updateNewPoiInfo} 
+                                    value = {this.props.newPoiInfo.name}
+                                    onChange = {this.props.updateNewPoiInfo} 
                                 />
                             </Col>
                             <Col md={2}>
                                 <Form.Label>Street:</Form.Label>
                                 <Form.Control
-                                    className = {this.state.errors.streetError ? 'inputError' : ''}
+                                    className = {this.props.errors.streetError ? 'inputError' : ''}
                                     type="text"
                                     id="street"
                                     placeholder="Street"
-                                    value = {this.state.newPoiInfo.street}
-                                    onChange = {this.updateNewPoiInfo}
+                                    value = {this.props.newPoiInfo.street}
+                                    onChange = {this.props.updateNewPoiInfo}
                                 />
                             </Col>
                             <Col md={1}>
                                 <Form.Label>Number:</Form.Label>
                                 <Form.Control
-                                    className = {this.state.errors.housenumberError ? 'inputError' : ''}
+                                    className = {this.props.errors.housenumberError ? 'inputError' : ''}
                                     type="text"
                                     id="housenumber"
                                     placeholder="Num"
-                                    value = {this.state.newPoiInfo.housenumber}
-                                    onChange = {this.updateNewPoiInfo}
+                                    value = {this.props.newPoiInfo.housenumber}
+                                    onChange = {this.props.updateNewPoiInfo}
                                 />
                             </Col>
                             <Col md={2}>
                                 <Form.Label>Latitude:</Form.Label>
                                 <Form.Control 
-                                className = {this.state.errors.latError ? 'inputError' : ''}
+                                className = {this.props.errors.latError ? 'inputError' : ''}
                                 type="number" 
                                 placeholder="lat"
                                 id="inputLat"
-                                value={this.props.newPoiLatLon.lat}
+                                value={this.props.newPoiInfo.lat}
                                 onChange = {this.props.setLatLonOfNewPoi}
                                 />
                             </Col>
                             <Col md={2}>
                                 <Form.Label>Longitude:</Form.Label>
                                 <Form.Control 
-                                className = {this.state.errors.lonError ? 'inputError' : ''}
+                                className = {this.props.errors.lonError ? 'inputError' : ''}
                                 type="number" 
                                 placeholder="lon"
                                 id="inputLon"
-                                value={this.props.newPoiLatLon.lon}
+                                value={this.props.newPoiInfo.lon}
                                 onChange = {this.props.setLatLonOfNewPoi} 
                                 />
                             </Col>
@@ -223,17 +84,17 @@ class NewPoiInput extends Component {
                                     <Form.Control 
                                     type="text" 
                                     id="amenity"
-                                    className= {this.state.errors.amenityError ? 'inputError readOnlyAmenity' : 'readOnlyAmenity'} 
+                                    className= {this.props.errors.amenityError ? 'inputError readOnlyAmenity' : 'readOnlyAmenity'} 
                                     readOnly 
                                     placeholder="Select amenity"
-                                    value = {this.state.newPoiInfo.amenity}>
+                                    value = {this.props.newPoiInfo.amenity}>
                                     </Form.Control>
                                     <DropdownButton
                                         variant="outline-primary"
                                         alignRight
                                         size="md"
                                         title={""}
-                                        onSelect = {this.handleSelectAmenity}
+                                        onSelect = {this.props.handleSelectAmenity}
                                         >
                                         
                                             { amenityListOptions }
@@ -246,7 +107,7 @@ class NewPoiInput extends Component {
                             <Col ms={1} className="d-flex  align-items-end">
                                 <Button
                                     type = "submit"
-                                    onClick = {this.addNewPoi}
+                                    onClick = {this.props.addNewPoi}
                                     variant="primary"
                                 >
                                     Add
