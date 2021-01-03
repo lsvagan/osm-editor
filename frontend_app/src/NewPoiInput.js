@@ -107,7 +107,7 @@ class NewPoiInput extends Component {
                             <Col ms={1} className="d-flex  align-items-end">
                                 <Button
                                     type = "submit"
-                                    onClick = {this.props.addNewPoi}
+                                    onClick = {this.props.formVerificationAndSubmit}
                                     variant="primary"
                                 >
                                     Add

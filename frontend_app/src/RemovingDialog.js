@@ -2,6 +2,9 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
+import { connect } from 'react-redux';
+import { deletePoi } from './app_store/actions';
+
 const RemovingDialog = (props) => {
     
     const [show, setShow] = React.useState(false);
@@ -28,7 +31,7 @@ const RemovingDialog = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                             Cancel
                     </Button>
-                    <Button variant="primary" onClick={() => {handleClose(); props.removePoiFun(props.poiId)}}>
+                    <Button variant="primary" onClick={() => {handleClose(); props.deletePoi(props.poiId)}}>
                         Remove POI
                     </Button>
                 </Modal.Footer>
@@ -37,4 +40,10 @@ const RemovingDialog = (props) => {
     );
 };
 
-  export default RemovingDialog;
+const mapDispatchToProps = ( dispatch ) => {
+    return {
+        deletePoi: (poiId) => dispatch(deletePoi(poiId))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(RemovingDialog);

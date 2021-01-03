@@ -2,6 +2,8 @@ import React from 'react';
 import {Marker, Popup} from 'react-leaflet';
 import L from 'leaflet';
 
+import { connect } from 'react-redux';
+
 function OpenStreetMapMarker (props) {
 
         var mapPointer = L.icon({
@@ -37,4 +39,10 @@ function OpenStreetMapMarker (props) {
     
 }
 
-export default OpenStreetMapMarker;
+const mapStateToProps = ( state ) => {
+    return {
+        pois: state.pois
+    }
+}
+
+export default connect(mapStateToProps)(OpenStreetMapMarker);

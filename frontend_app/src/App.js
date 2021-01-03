@@ -4,57 +4,13 @@ import './App.css';
 import Container from 'react-bootstrap/Container';
 import MapAndInputContainer from './MapAndInputContainer';
 
+import { connect } from 'react-redux';
+import { fetchPois } from './app_store/actions';
+
 class App extends Component {
 
-  constructor() {
-    super();
-   
-    this.state = {
-      pois: []
-    };
-  }
-
-  pushNewPoiInState = (newPoiData) => {
-    //add new poi at the beginning of pois arr, because we want all new poi at the top of table
-
-    this.setState(prevState => {
-      let pois = [...prevState.pois];
-      pois.unshift(newPoiData);
-      return { pois }
-    })
-
-  }
-
-  removePoiFromState = (id) => {
-    this.setState(prevState => {
-      let pois = prevState.pois.filter((poi) => {
-        return poi.id !== id;
-      })
-      return { pois }
-    })
-  }
-
-  showHidePoi = (e, idOfPoi) => {
-    let updatedShowMarker = this.state.pois;
-    updatedShowMarker.forEach(function(poi){
-      if(poi.id === idOfPoi){
-        poi.showOnMap = e.target.checked;
-      }
-    })
-    this.setState({
-      pois : updatedShowMarker
-    })
-  }
-
-  componentDidMount(){
-
-    fetch('http://localhost:5000/getAllPois', {
-      method: 'GET',
-      headers: {'Content-Type': 'application/json'}
-    })
-    .then((result) => result.json())
-    .then(data => this.setState({pois: data}))
-    
+  componentDidMount() {
+    this.props.fetchPois();
   }
  
   render() {
@@ -63,15 +19,8 @@ class App extends Component {
 
       <div>
         <Container>
-          <MapAndInputContainer 
-            pois = {this.state.pois}
-            pushNewPoiInState = {this.pushNewPoiInState}
-          />
-          <TableOfPoi 
-            pois = { this.state.pois }
-            showHidePoi = {this.showHidePoi}
-            removePoiFromState = {this.removePoiFromState}
-          />
+          <MapAndInputContainer />
+          <TableOfPoi />
           <a href='http://localhost:5000/osmChangeXml' target="blank">
             Osm Change Xml
           </a> 
@@ -83,4 +32,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = ( dispatch ) => {
+  return {
+    fetchPois: () => dispatch(fetchPois())
+  }
+};
+
+export default connect(null, mapDispatchToProps)(App);
