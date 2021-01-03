@@ -1,23 +1,12 @@
 import React, {Component} from 'react';
 import Table from 'react-bootstrap/Table';
-import RemovingDialog from './RemovingDialog'
+import Button from 'react-bootstrap/Button';
+import RemovingDialog from './RemovingDialog';
+
+import { connect } from 'react-redux';
+import { showHidePoi } from './app_store/actions';
 
 class TableOfPoi extends Component  {
-
-    removePoiFun = (id) => {
-        fetch('http://localhost:5000/removePoi', {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                id: id
-            })
-        })
-        .then(result => {
-            if(result.status === 200) {
-                this.props.removePoiFromState(id);
-            }
-        })
-    }
 
     render() {
         const {pois, showHidePoi} = this.props;
@@ -31,6 +20,11 @@ class TableOfPoi extends Component  {
                     <td>{poi.lon.toFixed(7)}</td>
                     <td>
                         <input type="checkbox" onClick={(e) => showHidePoi(e, poi.id)} />
+                    </td>
+                    <td>
+                        <Button size="sm" variant="outline-info">
+                            Edit
+                        </Button>
                     </td>
                     <td>
                         <RemovingDialog 
@@ -55,7 +49,7 @@ class TableOfPoi extends Component  {
                         <th>Amenity</th>
                         <th>Latitude</th>
                         <th>Longitude</th>
-                        <th>Show on map</th>
+                        <th>Show/hide</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,4 +62,16 @@ class TableOfPoi extends Component  {
     
 }
 
-export default TableOfPoi;
+const mapStateToProps = ( state ) => {
+    return {
+        pois: state.pois
+    }
+};
+
+const mapDispatchToProps = ( dispatch ) => {
+    return {
+        showHidePoi: (e, poiId) => dispatch(showHidePoi(e, poiId))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TableOfPoi);

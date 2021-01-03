@@ -2,6 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import poiReducer from './app_store/poiReducer';
+
 import 'leaflet/dist/leaflet.css';
 import "leaflet/dist/leaflet.js";
 
@@ -13,9 +18,13 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+const store = createStore(poiReducer, applyMiddleware(thunk));
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={ store }>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

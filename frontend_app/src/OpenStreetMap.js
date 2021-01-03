@@ -20,7 +20,7 @@ import Search from './MapSearch';
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
 
-              <OpenStreetMapMarker pois = {this.props.pois} />
+              <OpenStreetMapMarker />
               <NewPoiMarker newPoiInfo = {this.props.newPoiInfo} />
               <Search setLatLonOfNewPoi = {this.props.setLatLonOfNewPoi} />
 

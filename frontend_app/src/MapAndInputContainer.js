@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import NewPoiInput from './NewPoiInput';
 import MapComponent from './OpenStreetMap';
 
+import { connect } from 'react-redux';
+import { addNewPoi } from './app_store/actions';
+
 class MapAndInputContainer extends Component {
     constructor() {
         super();
@@ -61,12 +64,13 @@ class MapAndInputContainer extends Component {
       
     }
 
-    addNewPoi = (e) => {
+    formVerificationAndSubmit = (e) => {
         e.preventDefault();
 
         if(this.formValidation()){
-            this.pushNewPoiToDatabase(this.state.newPoiInfo);
+            this.props.addNewPoi(this.state.newPoiInfo);
         }
+        this.deleteInputs();
 
     }
 
@@ -76,21 +80,6 @@ class MapAndInputContainer extends Component {
             newPoiInfo.amenity = e;             
             return { newPoiInfo };                         
         })
-    }
-
-    pushNewPoiToDatabase = (newPoi) => {
-        fetch('http://localhost:5000/addPoi', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(newPoi)
-        })
-        .then(result => result.json())
-        .then(data => {
-            this.props.pushNewPoiInState(data[0]);
-
-            //clear all inputs
-            this.deleteInputs();
-        });
     }
 
     //helper function for delete inputs after push new poi info to database
@@ -174,9 +163,7 @@ class MapAndInputContainer extends Component {
         return ( 
             <div>
                 <MapComponent 
-                    setLatLonOfNewPoi = {this.setLatLonOfNewPoi} 
-                    pois = {this.props.pois}
-                    pushNewPoiInState = {this.props.pushNewPoiInState}
+                    setLatLonOfNewPoi = {this.setLatLonOfNewPoi}
                     newPoiInfo = {this.state.newPoiInfo}
                 />
                 <NewPoiInput 
@@ -184,13 +171,18 @@ class MapAndInputContainer extends Component {
                     newPoiInfo = {this.state.newPoiInfo}
                     errors = {this.state.errors}
                     handleSelectAmenity = {this.handleSelectAmenity}
-                    addNewPoi = {this.addNewPoi}
-                    pushNewPoiInState = {this.props.pushNewPoiInState}
+                    formVerificationAndSubmit = {this.formVerificationAndSubmit}
                     updateNewPoiInfo = {this.updateNewPoiInfo}
                 />
             </div>
         );
     }
 }
+
+const mapDispatchToProps = ( dispatch ) => {
+    return {
+        addNewPoi: (newPoi) => dispatch(addNewPoi(newPoi))
+    }
+}
  
-export default MapAndInputContainer;
+export default connect(null, mapDispatchToProps)(MapAndInputContainer);
