@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import RemovingDialog from './RemovingDialog';
+import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { showHidePoi } from './app_store/actions';
@@ -19,12 +20,14 @@ class TableOfPoi extends Component  {
                     <td>{poi.lat.toFixed(7)}</td>
                     <td>{poi.lon.toFixed(7)}</td>
                     <td>
-                        <input type="checkbox" onClick={(e) => showHidePoi(e, poi.id)} />
+                        <input type="checkbox" onChange={(e) => showHidePoi(e, poi.id)} />
                     </td>
                     <td>
-                        <Button size="sm" variant="outline-info">
-                            Edit
-                        </Button>
+                        <Link to={`/editPoi/${poi.id}`}>
+                            <Button size="sm" variant="outline-info">
+                                Edit
+                            </Button>
+                        </Link>
                     </td>
                     <td>
                         <RemovingDialog 
@@ -64,7 +67,7 @@ class TableOfPoi extends Component  {
 
 const mapStateToProps = ( state ) => {
     return {
-        pois: state.pois
+        pois: state.poiReducer.pois
     }
 };
 

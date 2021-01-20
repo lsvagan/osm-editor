@@ -2,6 +2,8 @@ import React from 'react';
 import {Marker} from 'react-leaflet';
 import L from 'leaflet';
 
+import { connect } from 'react-redux';
+
 function NewPoiMarker (props) {
     var mapPointer = L.icon({
         iconUrl: require('./redPointer.png'),
@@ -12,11 +14,18 @@ function NewPoiMarker (props) {
     
         return(
                 <Marker
-                    position={[props.newPoiInfo.lat, props.newPoiInfo.lon]}
+                    position={[props.lat, props.lon]}
                     icon = {mapPointer}
                 >
                 </Marker>
         )
 }
 
-export default NewPoiMarker;
+const mapStateToProps = ( state ) => {
+    return {
+        lat: state.newPoiReducer.newPoiInfo.lat,
+        lon: state.newPoiReducer.newPoiInfo.lon
+    }
+}
+
+export default connect(mapStateToProps)(NewPoiMarker);

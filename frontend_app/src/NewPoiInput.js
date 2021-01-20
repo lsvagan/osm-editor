@@ -5,7 +5,9 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import DropdownItem from 'react-bootstrap/DropdownItem';
-import Dropdown from 'react-bootstrap/Dropdown'
+import Dropdown from 'react-bootstrap/Dropdown';
+
+import { connect } from 'react-redux';
 
 import './NewPoiInput.css';
 
@@ -23,7 +25,7 @@ class NewPoiInput extends Component {
                 <Form>
                     <Form.Group>
                         <Row>
-                            <Col md={2}>
+                            <Col md={6} sm={12}>
                                 <Form.Label>Place name:</Form.Label>
                                 <Form.Control
                                     className = {this.props.errors.nameError ? 'inputError' : ''} 
@@ -33,8 +35,7 @@ class NewPoiInput extends Component {
                                     value = {this.props.newPoiInfo.name}
                                     onChange = {this.props.updateNewPoiInfo} 
                                 />
-                            </Col>
-                            <Col md={2}>
+                           
                                 <Form.Label>Street:</Form.Label>
                                 <Form.Control
                                     className = {this.props.errors.streetError ? 'inputError' : ''}
@@ -44,8 +45,7 @@ class NewPoiInput extends Component {
                                     value = {this.props.newPoiInfo.street}
                                     onChange = {this.props.updateNewPoiInfo}
                                 />
-                            </Col>
-                            <Col md={1}>
+                            
                                 <Form.Label>Number:</Form.Label>
                                 <Form.Control
                                     className = {this.props.errors.housenumberError ? 'inputError' : ''}
@@ -56,29 +56,27 @@ class NewPoiInput extends Component {
                                     onChange = {this.props.updateNewPoiInfo}
                                 />
                             </Col>
-                            <Col md={2}>
+                            <Col md={6} sm={12}>
                                 <Form.Label>Latitude:</Form.Label>
                                 <Form.Control 
                                 className = {this.props.errors.latError ? 'inputError' : ''}
                                 type="number" 
                                 placeholder="lat"
                                 id="inputLat"
-                                value={this.props.newPoiInfo.lat}
+                                value={this.props.lat}
                                 onChange = {this.props.setLatLonOfNewPoi}
                                 />
-                            </Col>
-                            <Col md={2}>
+                            
                                 <Form.Label>Longitude:</Form.Label>
                                 <Form.Control 
                                 className = {this.props.errors.lonError ? 'inputError' : ''}
                                 type="number" 
                                 placeholder="lon"
                                 id="inputLon"
-                                value={this.props.newPoiInfo.lon}
+                                value={this.props.lon}
                                 onChange = {this.props.setLatLonOfNewPoi} 
                                 />
-                            </Col>
-                            <Col md={2}>
+                            
                             <Form.Label>Amenity:</Form.Label> 
                                 <div className="d-flex"> 
                                     <Form.Control 
@@ -120,4 +118,11 @@ class NewPoiInput extends Component {
     }
 }
 
-export default NewPoiInput;
+const mapStateToProps = ( state ) => {
+    return {
+        lat: state.newPoiReducer.newPoiInfo.lat,
+        lon: state.newPoiReducer.newPoiInfo.lon
+    }
+}
+
+export default connect(mapStateToProps)(NewPoiInput);

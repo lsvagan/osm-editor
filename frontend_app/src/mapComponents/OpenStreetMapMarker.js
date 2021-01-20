@@ -41,7 +41,7 @@ function OpenStreetMapMarker (props) {
 
 const mapStateToProps = ( state ) => {
     return {
-        pois: state.pois
+        pois: state.poiReducer.pois
     }
 }
 

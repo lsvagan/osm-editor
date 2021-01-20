@@ -1,8 +1,17 @@
 import React, {Component} from 'react';
 import TableOfPoi from './TableOfPoi';
 import './App.css';
+
 import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+
 import MapAndInputContainer from './MapAndInputContainer';
+import MapComponent from './mapComponents/OpenStreetMap';
+import EditPoiTest from './EditPoiTest';
+
+import { BrowserRouter, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { fetchPois } from './app_store/actions';
@@ -17,15 +26,34 @@ class App extends Component {
 
     return(
 
-      <div>
+      <BrowserRouter>
         <Container>
-          <MapAndInputContainer />
-          <TableOfPoi />
-          <a href='http://localhost:5000/osmChangeXml' target="blank">
-            Osm Change Xml
-          </a> 
+
+          <Route exact path='/' component={() => {
+            return (
+              <div>
+                <MapComponent setLatLonOfNewPoi = {()=>{}} newPoiInfo = {{}} />
+                <Row className="justify-content-center">
+                  <Button variant="primary">Edit existing POI</Button>
+                  <Link to="/addNewPoi">
+                    <Button variant="primary">Add new POI</Button>
+                  </Link>
+                </Row>
+                <TableOfPoi />
+                <a href='http://localhost:5000/osmChangeXml' target="blank">
+                  Osm Change Xml
+                </a>
+            </div>
+            )
+          }}
+          />
+
+          <Route path='/addNewPoi' component={MapAndInputContainer} />
+          {/* <MapAndInputContainer /> */}
+          <Route path='/editPoi/:poiId' component={EditPoiTest} />
+          
         </Container>
-      </div>
+      </BrowserRouter>
 
     )
     

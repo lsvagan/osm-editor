@@ -3,6 +3,8 @@ import { Map, TileLayer } from 'react-leaflet';
 import OpenStreetMapMarker from './OpenStreetMapMarker';
 import NewPoiMarker from './NewPoiMarker';
 import Search from './MapSearch';
+import { connect } from 'react-redux';
+import { updateLatLon } from '../app_store/actions';
 
   class MapComponent extends Component {
     
@@ -13,7 +15,7 @@ import Search from './MapSearch';
           <Map className="leflet-map"
             center={[44.8110, 20.4625]}
             zoom={13}
-            onClick={this.props.setLatLonOfNewPoi}
+            onClick={this.props.setLatLon}
             >
               <TileLayer
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -21,14 +23,20 @@ import Search from './MapSearch';
               />
 
               <OpenStreetMapMarker />
-              <NewPoiMarker newPoiInfo = {this.props.newPoiInfo} />
-              <Search setLatLonOfNewPoi = {this.props.setLatLonOfNewPoi} />
+              <NewPoiMarker />
+              <Search />
 
           </Map>
         </div>
       );
     }
   }
+
+const mapDispatchToProps = ( dispatch ) => {
+  return {
+      setLatLon: (e) => { dispatch(updateLatLon(e.latlng)) }
+  }
+}
   
-  export default MapComponent;
+  export default connect(null, mapDispatchToProps)(MapComponent);
   

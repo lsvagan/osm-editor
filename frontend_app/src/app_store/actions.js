@@ -2,11 +2,11 @@ import {
     FETCH_POIS,
     TOGGLE_SHOW_HIDE_POI,
     DELETE_POI,
-    ADD_NEW_POI
+    ADD_NEW_POI,
+    UPDATE_LAT_LON_ONCLICK_OR_ONSEARCH
     } from './constants';
 
 export const fetchPois = () => {
-    console.log('fetched trought action');
     return ( dispatch, getState ) => {
         //async action
         fetch('http://localhost:5000/getAllPois', {
@@ -76,5 +76,12 @@ const deletePoiFromState = ( poiId ) => {
     return {
         type: DELETE_POI,
         payload: poiId
+    }
+}
+
+export const updateLatLon = ( latLonObj ) => {
+    return {
+        type: UPDATE_LAT_LON_ONCLICK_OR_ONSEARCH,
+        payload: latLonObj
     }
 }
