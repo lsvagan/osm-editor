@@ -3,7 +3,11 @@ import {
     TOGGLE_SHOW_HIDE_POI,
     DELETE_POI,
     ADD_NEW_POI,
-    UPDATE_LAT_LON_ONCLICK_OR_ONSEARCH
+    UPDATE_LAT_LON_ONCLICK_OR_ONSEARCH,
+    CHANGE_POI_INFO,
+    CHANGE_AMENITY,
+    SELECT_POI_FOR_EDIT,
+    CLEAR_NEW_POI_INFO_STATE
     } from './constants';
 
 export const fetchPois = () => {
@@ -83,5 +87,32 @@ export const updateLatLon = ( latLonObj ) => {
     return {
         type: UPDATE_LAT_LON_ONCLICK_OR_ONSEARCH,
         payload: latLonObj
+    }
+}
+
+export const changePoiInfo = ( obj ) => {
+    return {
+        type: CHANGE_POI_INFO,
+        payload: obj
+    }
+}
+
+export const changeAmenity = ( newAmenity ) => {
+    return {
+        type: CHANGE_AMENITY,
+        payload: newAmenity
+    }
+}
+
+export const selectPoiForEdit = ( poiObj ) => {
+    return {
+        type: SELECT_POI_FOR_EDIT,
+        payload: poiObj
+    }
+}
+
+export const clearNewPoiInfoState = () => {
+    return {
+        type: CLEAR_NEW_POI_INFO_STATE
     }
 }

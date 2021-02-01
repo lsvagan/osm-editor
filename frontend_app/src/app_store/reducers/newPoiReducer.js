@@ -1,38 +1,58 @@
 import {
-    UPDATE_LAT_LON_ONCLICK_OR_ONSEARCH
+    UPDATE_LAT_LON_ONCLICK_OR_ONSEARCH,
+    CHANGE_POI_INFO,
+    CHANGE_AMENITY,
+    SELECT_POI_FOR_EDIT,
+    CLEAR_NEW_POI_INFO_STATE
 } from '../constants'
 
 const newPoiInitalState = {
-    newPoiInfo: {
-        name: '',
-        street: '',
-        housenumber: '',
-        lat: '',
-        lon: '',
-        amenity: ''
-    },
-    //show red border if input is empty
-    errors: {
-        nameError: false,
-        streetError: false,
-        housenumberError: false,
-        latError: false,
-        lonError: false,
-        amenityError: false
-    }
+    name: '',
+    street: '',
+    housenumber: '',
+    lat: '',
+    lon: '',
+    amenity: ''
 };
 
 const newPoiReducer = ( state = newPoiInitalState, action = {} ) => {
+
     switch(action.type) {
+
         case UPDATE_LAT_LON_ONCLICK_OR_ONSEARCH:
-            console.log(action.payload);
-            let testObj = JSON.parse(JSON.stringify(state));
-            console.log(testObj)
-            testObj.newPoiInfo.lat = action.payload.lat.toFixed(7);
-            testObj.newPoiInfo.lon = action.payload.lng.toFixed(7);
-            return testObj;
+            return Object.assign( {}, state, {
+                lat: action.payload.lat.toFixed(7),
+                lon: action.payload.lng.toFixed(7)
+            } );
+
+        case CHANGE_POI_INFO:
+            // console.log(action.payload);
+            return Object.assign( {}, state, {
+                [action.payload.target.id]: action.payload.target.value
+            });
+
+        case CHANGE_AMENITY:
+            return Object.assign( {}, state, {
+                amenity: action.payload
+            });
+
+        case SELECT_POI_FOR_EDIT:
+            const { name, street, housenumber, lat, lon, amenity } = action.payload;
+            return Object.assign( {}, state, {
+                name,
+                street,
+                housenumber,
+                lat: lat.toFixed(7),
+                lon: lon.toFixed(7),
+                amenity
+            });
+        
+        case CLEAR_NEW_POI_INFO_STATE:
+            return newPoiInitalState;
+            
         default:
-            return state
+            return state;
+
     }
 }
 

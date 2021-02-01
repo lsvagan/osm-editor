@@ -23,8 +23,8 @@ function NewPoiMarker (props) {
 
 const mapStateToProps = ( state ) => {
     return {
-        lat: state.newPoiReducer.newPoiInfo.lat,
-        lon: state.newPoiReducer.newPoiInfo.lon
+        lat: state.newPoiReducer.lat,
+        lon: state.newPoiReducer.lon
     }
 }
 

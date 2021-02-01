@@ -167,12 +167,12 @@ class MapAndInputContainer extends Component {
                     newPoiInfo = {this.state.newPoiInfo}
                 />
                 <NewPoiInput 
-                    setLatLonOfNewPoi = {this.setLatLonOfNewPoi} 
-                    newPoiInfo = {this.state.newPoiInfo}
-                    errors = {this.state.errors}
-                    handleSelectAmenity = {this.handleSelectAmenity}
-                    formVerificationAndSubmit = {this.formVerificationAndSubmit}
-                    updateNewPoiInfo = {this.updateNewPoiInfo}
+                    // setLatLonOfNewPoi = {this.setLatLonOfNewPoi} 
+                    // newPoiInfo = {this.state.newPoiInfo}
+                    // errors = {this.state.errors}
+                    // handleSelectAmenity = {this.handleSelectAmenity}
+                    // formVerificationAndSubmit = {this.formVerificationAndSubmit}
+                    // updateNewPoiInfo = {this.updateNewPoiInfo}
                 />
             </div>
         );

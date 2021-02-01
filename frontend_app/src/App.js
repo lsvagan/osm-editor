@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { fetchPois } from './app_store/actions';
+import NewPoiInput from './NewPoiInput';
 
 class App extends Component {
 
@@ -28,11 +29,11 @@ class App extends Component {
 
       <BrowserRouter>
         <Container>
-
+        <MapComponent />
           <Route exact path='/' component={() => {
             return (
               <div>
-                <MapComponent setLatLonOfNewPoi = {()=>{}} newPoiInfo = {{}} />
+                
                 <Row className="justify-content-center">
                   <Button variant="primary">Edit existing POI</Button>
                   <Link to="/addNewPoi">
@@ -48,10 +49,10 @@ class App extends Component {
           }}
           />
 
-          <Route path='/addNewPoi' component={MapAndInputContainer} />
-          {/* <MapAndInputContainer /> */}
-          <Route path='/editPoi/:poiId' component={EditPoiTest} />
-          
+          <Route path='/addNewPoi' component={NewPoiInput} />
+          {/* <Route path='/editPoi/:poiId' component={EditPoiTest} /> */}
+          <Route path='/editPoi/:poiId' render={ (props) => <NewPoiInput view="edit"  {...props} /> } />
+
         </Container>
       </BrowserRouter>
 
