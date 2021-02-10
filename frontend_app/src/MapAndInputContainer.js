@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NewPoiInput from './NewPoiInput';
-import MapComponent from './mapComponents/OpenStreetMap';
+import MapComponent from './mapComponents/MapComponent';
 
 import { connect } from 'react-redux';
 import { addNewPoi } from './app_store/actions';

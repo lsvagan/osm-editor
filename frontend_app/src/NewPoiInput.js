@@ -8,7 +8,7 @@ import DropdownItem from 'react-bootstrap/DropdownItem';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 import { connect } from 'react-redux';
-import { changePoiInfo, changeAmenity, selectPoiForEdit, clearNewPoiInfoState, addNewPoi } from './app_store/actions';
+import { changePoiInfo, changeAmenity, selectPoiForEdit, clearNewPoiInfoState, addNewPoi, updatePoi } from './app_store/actions';
 
 import './NewPoiInput.css';
 
@@ -66,7 +66,11 @@ class NewPoiInput extends Component {
 
         //all inputs are correct
         // console.log(this.props.newPoiInfo)
-        this.props.addNewPoi(this.props.newPoiInfo);
+        if(this.props.view === 'edit') {
+            this.props.updatePoi(this.props.newPoiInfo);
+        } else {
+            this.props.addNewPoi(this.props.newPoiInfo);
+        }
         
     };
 
@@ -211,7 +215,8 @@ const mapDispatchToProps = ( dispatch ) => {
         changeAmenity: ( newAmenity ) => { dispatch(changeAmenity(newAmenity)) },
         selectPoiForEdit: ( poiObj ) => { dispatch(selectPoiForEdit(poiObj)) },
         clearNewPoiInfoState: () => { dispatch(clearNewPoiInfoState()) },
-        addNewPoi: (newPoi) => { dispatch(addNewPoi(newPoi)) }
+        addNewPoi: (newPoi) => { dispatch(addNewPoi(newPoi)) },
+        updatePoi: (updatedPoi) => { dispatch(updatePoi(updatedPoi)) }
     }
 }
 

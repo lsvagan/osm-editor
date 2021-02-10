@@ -7,7 +7,8 @@ import {
     CHANGE_POI_INFO,
     CHANGE_AMENITY,
     SELECT_POI_FOR_EDIT,
-    CLEAR_NEW_POI_INFO_STATE
+    CLEAR_NEW_POI_INFO_STATE,
+    UPDATE_POI_IN_STATE
     } from './constants';
 
 export const fetchPois = () => {
@@ -108,6 +109,27 @@ export const selectPoiForEdit = ( poiObj ) => {
     return {
         type: SELECT_POI_FOR_EDIT,
         payload: poiObj
+    }
+}
+
+export const updatePoi = ( updatedInfo ) => {
+    return ( dispatch, getState ) => {
+        fetch('http://localhost:5000/updatePoi', {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(updatedInfo)
+        })
+        .then(result => result.json())
+        .then(data => {
+            dispatch(updatePoiInState(data[0]))
+        });
+    }
+}
+
+const updatePoiInState = (updatedPoi) => {
+    return {
+        type: UPDATE_POI_IN_STATE,
+        payload: updatedPoi
     }
 }
 

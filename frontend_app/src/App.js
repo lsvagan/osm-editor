@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 
 import MapAndInputContainer from './MapAndInputContainer';
-import MapComponent from './mapComponents/OpenStreetMap';
+import MapComponent from './mapComponents/MapComponent';
 import EditPoiTest from './EditPoiTest';
 
 import { BrowserRouter, Route } from 'react-router-dom';

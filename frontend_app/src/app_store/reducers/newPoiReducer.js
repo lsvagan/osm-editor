@@ -37,8 +37,9 @@ const newPoiReducer = ( state = newPoiInitalState, action = {} ) => {
             });
 
         case SELECT_POI_FOR_EDIT:
-            const { name, street, housenumber, lat, lon, amenity } = action.payload;
+            const { id, name, street, housenumber, lat, lon, amenity } = action.payload;
             return Object.assign( {}, state, {
+                id,
                 name,
                 street,
                 housenumber,

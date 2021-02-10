@@ -1,3 +1,5 @@
+const selectPoiById = require('./reusable_queries/selectPoiById');
+
 const addNewPoi = (req, res, db) => {
 
     let { name, street, housenumber, lat, lon, amenity } = req.body;
@@ -18,20 +20,10 @@ const addNewPoi = (req, res, db) => {
             console.log(err);
         }
         newestPoiId = result.insertId;
-        selectNewestPoiFromDataBase(newestPoiId, db, res);
+        selectPoiById(newestPoiId, db, res);
 
     })
 
-}
-
-const selectNewestPoiFromDataBase = (poiId, db, response) => {
-    let sql = 'SELECT id, name, street, housenumber, amenity, lat, lon FROM poi WHERE id = ?';
-    db.query(sql, poiId, (err, result) => {
-        if(err){
-            console.log(err);
-        }
-        response.json(result);
-    })
 }
 
 module.exports = addNewPoi;

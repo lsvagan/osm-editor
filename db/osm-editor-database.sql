@@ -38,7 +38,7 @@ CREATE TABLE `poi` (
   `amenity` char(255) NOT NULL,
   `removed` tinyint(1) NOT NULL DEFAULT 0,
   `version` tinyint(1) NOT NULL DEFAULT 1,
-  `timestamp` datetime NOT NULL DEFAULT current_timestamp()
+  `timestamp` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
