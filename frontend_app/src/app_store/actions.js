@@ -8,13 +8,16 @@ import {
     CHANGE_AMENITY,
     SELECT_POI_FOR_EDIT,
     CLEAR_NEW_POI_INFO_STATE,
-    UPDATE_POI_IN_STATE
+    UPDATE_POI_IN_STATE,
+    STORE_FETCHED_NODES_FROM_OVERPASS,
+    DISPLAY_FETCHED_NODES_XML_FROM_OSM,
+    EDIT_XML
     } from './constants';
 
 export const fetchPois = () => {
     return ( dispatch, getState ) => {
         //async action
-        fetch('http://localhost:5000/getAllPois', {
+        fetch('http://localhost:5000/api/getAllPois', {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
             })
@@ -32,7 +35,7 @@ const fetchPoisAction = ( pois ) => {
 
 export const addNewPoi = ( newPoi ) => {
     return ( dispatch, getState ) => {
-        fetch('http://localhost:5000/addPoi', {
+        fetch('http://localhost:5000/api/addPoi', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(newPoi)
@@ -62,7 +65,7 @@ export const showHidePoi = ( e, poiId ) => {
 export const deletePoi = ( poiId ) => {
     console.log('delete from action, id: ', poiId);
     return ( dispatch, getState ) => {
-        fetch('http://localhost:5000/removePoi', {
+        fetch('http://localhost:5000/api/removePoi', {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -114,7 +117,7 @@ export const selectPoiForEdit = ( poiObj ) => {
 
 export const updatePoi = ( updatedInfo ) => {
     return ( dispatch, getState ) => {
-        fetch('http://localhost:5000/updatePoi', {
+        fetch('http://localhost:5000/api/updatePoi', {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(updatedInfo)
@@ -136,5 +139,48 @@ const updatePoiInState = (updatedPoi) => {
 export const clearNewPoiInfoState = () => {
     return {
         type: CLEAR_NEW_POI_INFO_STATE
+    }
+}
+
+
+export const storeFetchedNodesFormOverpass = (osmFeatures) => {
+    return {
+        type: STORE_FETCHED_NODES_FROM_OVERPASS,
+        payload: osmFeatures
+    }
+}
+
+export const fetchNodesXmlFromOsm = ( id ) => {
+
+    return ( dispatch, getState ) => {
+        fetch(`https://www.openstreetmap.org/api/0.6/${id}`, {
+            method: 'GET',
+            headers: {'Content-Type': 'application/xml'}
+        })
+        .then(response => (response.text()))
+        .then(data => {
+            let sliceStart = data.indexOf("<node");
+            let sliceEnd = data.indexOf("</osm>");
+
+            let nodeXml = data.slice(sliceStart, sliceEnd);
+            console.log(nodeXml)
+            // let myobj = JSON.parse(JSON.stringify(data))
+            dispatch( dispayFetchedNodesXmlFormOsm(nodeXml) )
+        } )
+    }
+
+}
+
+const dispayFetchedNodesXmlFormOsm = (xml) => {
+    return {
+        type: DISPLAY_FETCHED_NODES_XML_FROM_OSM,
+        payload: xml
+    }
+}
+
+export const editXml = ( e ) => {
+    return {
+        type: EDIT_XML,
+        payload: e.target.value
     }
 }

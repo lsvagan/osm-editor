@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import TableOfPoi from './TableOfPoi';
+import NavigationBar from './NavigationBar';
 import './App.css';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 
-import MapAndInputContainer from './MapAndInputContainer';
+// import MapAndInputContainer from './MapAndInputContainer';
 import MapComponent from './mapComponents/MapComponent';
-import EditPoiTest from './EditPoiTest';
 
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -16,6 +16,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchPois } from './app_store/actions';
 import NewPoiInput from './NewPoiInput';
+import OverpassMap from './mapComponents/OverpassMap';
+import EditExistingPoiInput from './EditExistingPoiInput';
 
 class App extends Component {
 
@@ -29,19 +31,13 @@ class App extends Component {
 
       <BrowserRouter>
         <Container>
-        <MapComponent />
-          <Route exact path='/' component={() => {
+        <NavigationBar />
+        <Route path='/map' component={MapComponent} />
+          <Route path='/map/pois' component={() => {
             return (
               <div>
-                
-                <Row className="justify-content-center">
-                  <Button variant="primary">Edit existing POI</Button>
-                  <Link to="/addNewPoi">
-                    <Button variant="primary">Add new POI</Button>
-                  </Link>
-                </Row>
                 <TableOfPoi />
-                <a href='http://localhost:5000/osmChangeXml' target="blank">
+                <a href='http://localhost:5000/api/osmChangeXml' target="blank">
                   Osm Change Xml
                 </a>
             </div>
@@ -49,9 +45,19 @@ class App extends Component {
           }}
           />
 
-          <Route path='/addNewPoi' component={NewPoiInput} />
+          <Route path='/map/addNewPoi' component={NewPoiInput} />
           {/* <Route path='/editPoi/:poiId' component={EditPoiTest} /> */}
-          <Route path='/editPoi/:poiId' render={ (props) => <NewPoiInput view="edit"  {...props} /> } />
+          <Route path='/map/editPoi/:poiId' render={ (props) => <NewPoiInput view="edit"  {...props} /> } />
+
+          <Route path='/overpass/node' component={() => {
+            return (
+              <div>
+                <OverpassMap />
+                <EditExistingPoiInput/>
+              </div>
+            )
+          }}
+          />
 
         </Container>
       </BrowserRouter>

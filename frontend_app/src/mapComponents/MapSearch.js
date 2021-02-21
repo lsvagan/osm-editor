@@ -8,7 +8,9 @@ import { updateLatLon } from '../app_store/actions';
 
 class Search extends Component {
   componentDidMount() {
-  
+    
+    const view = this.props.view;
+    const queryNodes = this.props.queryNodes;
     const setLatLon = this.props.setLatLon;
     const map = this.props.leaflet.map;
 
@@ -23,7 +25,13 @@ class Search extends Component {
       for (let i = data.results.length - 1; i >= 0; i--) {
         //results.addLayer(L.marker(data.results[i].latlng));
         console.log(data);
-        setLatLon(data.latlng);
+
+        if(view === "geojson"){
+          queryNodes(data);
+        } else {
+          setLatLon(data.latlng);
+        }
+        
       }
     });
   }

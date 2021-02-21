@@ -23,7 +23,7 @@ class TableOfPoi extends Component  {
                         <input type="checkbox" onChange={(e) => showHidePoi(e, poi.id)} />
                     </td>
                     <td>
-                        <Link to={`/editPoi/${poi.id}`}>
+                        <Link to={`/map/editPoi/${poi.id}`}>
                             <Button size="sm" variant="outline-info">
                                 Edit
                             </Button>
