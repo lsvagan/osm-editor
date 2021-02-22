@@ -17,4 +17,4 @@ npm run client
 
 #production build
 navigate to /frontend_app directory and than run command npm run build
-open localhost:5000 in browser
+open localhost:5000/map/pois in browser

@@ -41,7 +41,7 @@ db.connect((err)=>{
     }
 });
 
-server.get('/', (req, res) => {
+server.get('/map/pois', (req, res) => {
     res.sendFile(path.join(__dirname, '/frontend_app/build', 'index.html'));
 })
 
