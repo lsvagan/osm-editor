@@ -12,6 +12,7 @@ const server = express();
 const getAllPois = require('./controllers/getAllPois');
 const addNewPoi = require('./controllers/addNewPoi');
 const removePoi = require('./controllers/removePoi');
+const updatePoi = require('./controllers/updatePoi');
 const osmChangeXml = require('./controllers/osmChangeXml');
 
 //cors Middleware
@@ -46,16 +47,19 @@ server.get('/', (req, res) => {
 
 //json API
 //gets all pois
-server.get('/getAllPois', (req, res) => { getAllPois(req, res, db) });
+server.get('/api/getAllPois', (req, res) => { getAllPois(req, res, db) });
 
 //post new poi
-server.post('/addPoi', (req, res) => { addNewPoi(req, res, db)});
+server.post('/api/addPoi', (req, res) => { addNewPoi(req, res, db)});
 
 //set removed atribute in DB to true (1), removing poi from frontend
-server.put('/removePoi', (req, res) => {removePoi(req, res, db)});
+server.put('/api/removePoi', (req, res) => {removePoi(req, res, db)});
+
+//update poi info, return poi with updated info
+server.put('/api/updatePoi', (req, res) => { updatePoi(req, res, db)});
 
 //get XML file for all pois
-server.get('/osmChangeXml', (req,res) => { osmChangeXml(req, res, db, js2xmlparser) });
+server.get('/api/osmChangeXml', (req,res) => { osmChangeXml(req, res, db, js2xmlparser) });
 
 
 server.listen(PORT, () => {

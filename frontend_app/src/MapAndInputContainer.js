@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NewPoiInput from './NewPoiInput';
-import MapComponent from './OpenStreetMap';
+import MapComponent from './mapComponents/MapComponent';
 
 import { connect } from 'react-redux';
 import { addNewPoi } from './app_store/actions';
@@ -167,12 +167,12 @@ class MapAndInputContainer extends Component {
                     newPoiInfo = {this.state.newPoiInfo}
                 />
                 <NewPoiInput 
-                    setLatLonOfNewPoi = {this.setLatLonOfNewPoi} 
-                    newPoiInfo = {this.state.newPoiInfo}
-                    errors = {this.state.errors}
-                    handleSelectAmenity = {this.handleSelectAmenity}
-                    formVerificationAndSubmit = {this.formVerificationAndSubmit}
-                    updateNewPoiInfo = {this.updateNewPoiInfo}
+                    // setLatLonOfNewPoi = {this.setLatLonOfNewPoi} 
+                    // newPoiInfo = {this.state.newPoiInfo}
+                    // errors = {this.state.errors}
+                    // handleSelectAmenity = {this.handleSelectAmenity}
+                    // formVerificationAndSubmit = {this.formVerificationAndSubmit}
+                    // updateNewPoiInfo = {this.updateNewPoiInfo}
                 />
             </div>
         );

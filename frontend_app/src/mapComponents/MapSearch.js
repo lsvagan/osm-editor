@@ -2,13 +2,18 @@ import { Component } from "react";
 import L from "leaflet";
 import * as ELG from "esri-leaflet-geocoder";
 import { withLeaflet } from "react-leaflet";
+import { connect } from 'react-redux';
+
+import { updateLatLon } from '../app_store/actions';
 
 class Search extends Component {
   componentDidMount() {
-    //my custom function to add new marker
-    const customMarker = this.props.setLatLonOfNewPoi;
-
+    
+    const view = this.props.view;
+    const queryNodes = this.props.queryNodes;
+    const setLatLon = this.props.setLatLon;
     const map = this.props.leaflet.map;
+
     const southWest = L.latLng(44.66767620116956, 20.15161381933688);
     const northEast = L.latLng(44.94536144236941, 20.79993565712487);
     const searchBounds = L.latLngBounds(southWest, northEast);
@@ -19,7 +24,14 @@ class Search extends Component {
       //results.clearLayers();
       for (let i = data.results.length - 1; i >= 0; i--) {
         //results.addLayer(L.marker(data.results[i].latlng));
-        customMarker(data);
+        console.log(data);
+
+        if(view === "geojson"){
+          queryNodes(data);
+        } else {
+          setLatLon(data.latlng);
+        }
+        
       }
     });
   }
@@ -29,5 +41,11 @@ class Search extends Component {
   }
 }
 
+const mapDispatchToProps = ( dispatch ) => {
+  return {
+    setLatLon: (latLonObj) => { dispatch(updateLatLon(latLonObj)) }
+  }
+};
+
 //export default Search;
-export default withLeaflet(Search);
+export default withLeaflet(connect(null, mapDispatchToProps)(Search));

@@ -2,8 +2,9 @@ import {
     FETCH_POIS,
     TOGGLE_SHOW_HIDE_POI,
     DELETE_POI,
-    ADD_NEW_POI
-    } from './constants';
+    ADD_NEW_POI,
+    UPDATE_POI_IN_STATE
+    } from '../constants';
 
 const poiInitalState = {
     pois: []
@@ -17,11 +18,12 @@ const poiReducer = ( state = poiInitalState, action = {} ) => {
             return Object.assign({}, state, { pois: action.payload });
         
         case TOGGLE_SHOW_HIDE_POI:
-            console.log('show hide triggered, log from reducer: ', action.payload.poiId, action.payload.e.target.checked);
+            
             return Object.assign({}, state, { pois: state.pois.map(poi => {
                 if ( poi.id === action.payload.poiId ) {
-                    poi.showOnMap = action.payload.e.target.checked;
-                    return poi;
+                    let poiShowHideUpdated = Object.assign( {}, poi );
+                    poiShowHideUpdated.showOnMap = action.payload.e.target.checked;
+                    return poiShowHideUpdated;
                 }
                 return poi;
             }) });
@@ -32,10 +34,18 @@ const poiReducer = ( state = poiInitalState, action = {} ) => {
             }) });
 
         case ADD_NEW_POI:
-            console.log('add new poi log from reducer');
             let updatedPois = [...state.pois];
             updatedPois.unshift(action.payload);
             return Object.assign({}, state, { pois: updatedPois });
+
+        case UPDATE_POI_IN_STATE:
+            return Object.assign({}, state, { pois: state.pois.map(poi => {
+                if(poi.id === action.payload.id){
+                    return action.payload;
+                }
+                return poi;
+                })
+            })
 
         default:
             return state;
