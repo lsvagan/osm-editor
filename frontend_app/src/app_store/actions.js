@@ -143,7 +143,7 @@ export const clearNewPoiInfoState = () => {
 }
 
 
-export const storeFetchedNodesFormOverpass = (osmFeatures) => {
+export const storeFetchedNodesFromOverpass = (osmFeatures) => {
     return {
         type: STORE_FETCHED_NODES_FROM_OVERPASS,
         payload: osmFeatures
@@ -164,14 +164,15 @@ export const fetchNodesXmlFromOsm = ( id ) => {
 
             let nodeXml = data.slice(sliceStart, sliceEnd);
             console.log(nodeXml)
+            console.log('xml length: ', nodeXml.length)
             // let myobj = JSON.parse(JSON.stringify(data))
-            dispatch( dispayFetchedNodesXmlFormOsm(nodeXml) )
+            dispatch( dispayFetchedNodesXmlFromOsm(nodeXml) )
         } )
     }
 
 }
 
-const dispayFetchedNodesXmlFormOsm = (xml) => {
+const dispayFetchedNodesXmlFromOsm = (xml) => {
     return {
         type: DISPLAY_FETCHED_NODES_XML_FROM_OSM,
         payload: xml

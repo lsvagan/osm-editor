@@ -4,7 +4,7 @@ import OpenStreetMapMarker from './OpenStreetMapMarker';
 import NewPoiMarker from './NewPoiMarker';
 import Search from './MapSearch';
 import { connect } from 'react-redux';
-import { storeFetchedNodesFormOverpass } from '../app_store/actions';
+import { storeFetchedNodesFromOverpass } from '../app_store/actions';
 
 import overpass from 'query-overpass';
 import GeoJsonLayer from './GeoJsonLayer'
@@ -35,7 +35,7 @@ import GeoJsonLayer from './GeoJsonLayer'
     dataHandler = (error, osmData) => {
         if (!error && osmData.features !== undefined) {
             console.log(osmData)
-            this.props.storeFetchedNodesFormOverpass(osmData.features);
+            this.props.storeFetchedNodesFromOverpass(osmData.features);
         }
       };
 
@@ -110,7 +110,7 @@ import GeoJsonLayer from './GeoJsonLayer'
 
 const mapDispatchToProps = ( dispatch ) => {
   return {
-    storeFetchedNodesFormOverpass: (osmFeatures) => { dispatch(storeFetchedNodesFormOverpass(osmFeatures)) }
+    storeFetchedNodesFromOverpass: (osmFeatures) => { dispatch(storeFetchedNodesFromOverpass(osmFeatures)) }
   }
 }
   

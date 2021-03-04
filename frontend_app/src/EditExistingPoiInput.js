@@ -4,35 +4,83 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
+import './EditExistingPoiInput.css';
+
 import { connect } from 'react-redux';
 import { editXml } from './app_store/actions';
 
-function EditExistingPoiInput ( props ) {
+class EditExistingPoiInput extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            xmlInputError: false
+        }
+    }
 
-    return (
+    inputErrorHandler = (e) => {
+        e.preventDefault();
+        console.log(typeof(this.props.xml));
 
-        <Form>
+        if(!this.props.xml) {
+            //input is empty
+            this.setState( { xmlInputError: true } );
+        } else {
 
-            <Row>
-                <Col md={8}>
-                    <Form.Label>xml:</Form.Label>
-                    <Form.Control
-                    as="textarea"
-                    rows={10}
-                    // className = {} 
-                    type="text" 
-                    id="xmlOfExistingPoi"
-                    placeholder="Click on map and select node for edit"
-                    value = { props.xml }
-                    onChange = { props.editXml } 
-                    />
-                </Col>
-            </Row>
-            <Button className = "mt-3 mb-3"> Save </Button>
+            //check xml format
+            let parser = new DOMParser();
+            let parsedXml = parser.parseFromString(this.props.xml, 'application/xml');
+            console.log(parsedXml);
+            console.log(parsedXml.getElementsByTagName('parsererror')[0]);
+            let parseError = parsedXml.getElementsByTagName('parsererror')[0];
+
+            if(!parseError) {
+                this.setState( { xmlInputError: false }, this.submitXml );
+            } else {
+                this.setState( { xmlInputError: true } );
+            }
+
+        }
+        
+    }
+
+    submitXml = () => {
+        console.log('submited! ', this.props.xml)
+    }
+
+    render() {
+
+        return (
+
+            <Form>
     
-        </Form>
+                <Row>
+                    <Col md={8}>
+                        <Form.Label>xml:</Form.Label>
+                        <Form.Control
+                        as="textarea"
+                        rows={10}
+                        className = { this.state.xmlInputError ? 'xmlInputError' : '' } 
+                        type="text" 
+                        id="xmlOfExistingPoi"
+                        placeholder="Click on map and select node for edit"
+                        value = { this.props.xml }
+                        onChange = { this.props.editXml } 
+                        />
+                    </Col>
+                </Row>
+                <Button 
+                    className = "mt-3 mb-3"
+                    onClick = {this.inputErrorHandler}
+                > 
+                Save
+                </Button>
+        
+            </Form>
+    
+        )
 
-    )
+    }
+    
 }
 
 const mapStateToProps = ( state ) => {
