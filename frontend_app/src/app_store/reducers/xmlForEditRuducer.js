@@ -4,7 +4,10 @@ import {
     } from '../constants';
 
 const initState = {
-    xml: ''
+    xml: {
+        id: '',
+        xmlString: ''
+    }
 }
 
 const xmlForEditReducer = ( state=initState, action= {} ) => {
@@ -14,8 +17,9 @@ const xmlForEditReducer = ( state=initState, action= {} ) => {
         case DISPLAY_FETCHED_NODES_XML_FROM_OSM:
             return Object.assign( {}, state, { xml: action.payload } );
 
-        case EDIT_XML: 
-            return Object.assign( {}, state, { xml: action.payload } );
+        case EDIT_XML:
+            let updatedXml = Object.assign( {}, state.xml, { xmlString:action.payload }); 
+            return Object.assign( {}, state, { xml: updatedXml } );
 
         default:
             return state;

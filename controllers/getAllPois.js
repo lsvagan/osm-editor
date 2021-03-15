@@ -4,6 +4,7 @@ const getAllPois = (req, res, db) => {
         if(err){
             console.log(err);
         }
+        console.log(result)
         res.json(result);
     })
 }

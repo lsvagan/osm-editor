@@ -3,6 +3,7 @@ const selectPoiById = require("./reusable_queries/selectPoiById");
 const updatePoi = (req, res, db) => {
     
     let { name, street, housenumber, lat, lon, amenity, id } = req.body;
+    let tableName = 'poi';
     
     let sql = 'UPDATE poi SET name = ?, street = ?, housenumber = ?, lat = ?, lon = ?, amenity = ? WHERE id = ?';
 
@@ -10,7 +11,7 @@ const updatePoi = (req, res, db) => {
         if(err){
             console.log(err);
         }
-        selectPoiById(id, db, res);
+        selectPoiById(id, db, tableName, res);
     });
 
 }

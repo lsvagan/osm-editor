@@ -12,6 +12,8 @@ const addNewPoi = (req, res, db) => {
         amenity: amenity
     };
 
+    let tableName = 'poi';
+
     let sql = 'INSERT INTO poi SET ?';
     let newestPoiId;
 
@@ -20,7 +22,7 @@ const addNewPoi = (req, res, db) => {
             console.log(err);
         }
         newestPoiId = result.insertId;
-        selectPoiById(newestPoiId, db, res);
+        selectPoiById(newestPoiId, db, tableName, res);
 
     })
 

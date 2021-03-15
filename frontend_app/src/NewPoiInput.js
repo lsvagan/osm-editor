@@ -50,7 +50,7 @@ class NewPoiInput extends Component {
 
         }
 
-        this.setState( newErrorObj, () => { console.log(this.formVerificationAndSubmit()) } );
+        this.setState( newErrorObj, () => { this.formVerificationAndSubmit() } );
     
     };
 
@@ -209,14 +209,14 @@ const mapStateToProps = ( state ) => {
     }
 }
 
-const mapDispatchToProps = ( dispatch ) => {
+const mapDispatchToProps = ( dispatch, ownProps ) => {
     return {
         changePoiInfo: (e) => { dispatch(changePoiInfo(e)) },
         changeAmenity: ( newAmenity ) => { dispatch(changeAmenity(newAmenity)) },
         selectPoiForEdit: ( poiObj ) => { dispatch(selectPoiForEdit(poiObj)) },
         clearNewPoiInfoState: () => { dispatch(clearNewPoiInfoState()) },
-        addNewPoi: (newPoi) => { dispatch(addNewPoi(newPoi)) },
-        updatePoi: (updatedPoi) => { dispatch(updatePoi(updatedPoi)) }
+        addNewPoi: (newPoi) => { dispatch(addNewPoi(newPoi, ownProps)) },
+        updatePoi: (updatedPoi) => { dispatch(updatePoi(updatedPoi, ownProps)) }
     }
 }
 

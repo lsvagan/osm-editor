@@ -33,7 +33,7 @@ const fetchPoisAction = ( pois ) => {
     }
 }
 
-export const addNewPoi = ( newPoi ) => {
+export const addNewPoi = ( newPoi, ownProps ) => {
     return ( dispatch, getState ) => {
         fetch('http://localhost:5000/api/addPoi', {
             method: 'POST',
@@ -44,6 +44,8 @@ export const addNewPoi = ( newPoi ) => {
         .then(data => {
             dispatch(addNewPoiToState(data[0]));
             // console.log(data);
+            //redirect on home page 
+            ownProps.history.push('/map/pois');
         })
     }
 }
@@ -115,7 +117,7 @@ export const selectPoiForEdit = ( poiObj ) => {
     }
 }
 
-export const updatePoi = ( updatedInfo ) => {
+export const updatePoi = ( updatedInfo, ownProps ) => {
     return ( dispatch, getState ) => {
         fetch('http://localhost:5000/api/updatePoi', {
             method: 'PUT',
@@ -124,7 +126,8 @@ export const updatePoi = ( updatedInfo ) => {
         })
         .then(result => result.json())
         .then(data => {
-            dispatch(updatePoiInState(data[0]))
+            dispatch(updatePoiInState(data[0]));
+            ownProps.history.push('/map/pois');
         });
     }
 }
@@ -153,6 +156,10 @@ export const storeFetchedNodesFromOverpass = (osmFeatures) => {
 export const fetchNodesXmlFromOsm = ( id ) => {
 
     return ( dispatch, getState ) => {
+
+        let idSpliter = id.split('/');
+        let idNumber = idSpliter[idSpliter.length - 1];
+
         fetch(`https://www.openstreetmap.org/api/0.6/${id}`, {
             method: 'GET',
             headers: {'Content-Type': 'application/xml'}
@@ -166,16 +173,19 @@ export const fetchNodesXmlFromOsm = ( id ) => {
             console.log(nodeXml)
             console.log('xml length: ', nodeXml.length)
             // let myobj = JSON.parse(JSON.stringify(data))
-            dispatch( dispayFetchedNodesXmlFromOsm(nodeXml) )
+            dispatch( dispayFetchedNodesXmlFromOsm(idNumber, nodeXml) )
         } )
     }
 
 }
 
-const dispayFetchedNodesXmlFromOsm = (xml) => {
+const dispayFetchedNodesXmlFromOsm = (idNumber, xml) => {
     return {
         type: DISPLAY_FETCHED_NODES_XML_FROM_OSM,
-        payload: xml
+        payload: { 
+            id: idNumber,
+            xmlString: xml
+        }
     }
 }
 
@@ -183,5 +193,22 @@ export const editXml = ( e ) => {
     return {
         type: EDIT_XML,
         payload: e.target.value
+    }
+}
+
+
+export const postNode = ( xmlObj, ownProps ) => {
+
+    return (dispatch, getState) => {
+        fetch('http://localhost:5000/api/postNode', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(xmlObj)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            ownProps.history.push('/map/pois');
+        })
     }
 }

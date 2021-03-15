@@ -14,6 +14,8 @@ const addNewPoi = require('./controllers/addNewPoi');
 const removePoi = require('./controllers/removePoi');
 const updatePoi = require('./controllers/updatePoi');
 const osmChangeXml = require('./controllers/osmChangeXml');
+const addOsmNode = require('./controllers/addOsmNode');
+const osmChangeXmlNode = require('./controllers/osmChangeXmlNode');
 
 //cors Middleware
 server.use(cors());
@@ -59,7 +61,12 @@ server.put('/api/removePoi', (req, res) => {removePoi(req, res, db)});
 server.put('/api/updatePoi', (req, res) => { updatePoi(req, res, db)});
 
 //get XML file for all pois
-server.get('/api/osmChangeXml', (req,res) => { osmChangeXml(req, res, db, js2xmlparser) });
+server.get('/api/osmChangeXml', (req, res) => { osmChangeXml(req, res, db, js2xmlparser) });
+
+//post existing node from OSM in node table
+server.post('/api/postNode', (req, res) => { addOsmNode(req, res, db) });
+
+server.get('/api/osmChangeXmlNode', (req, res) => { osmChangeXmlNode(req, res, db) });
 
 
 server.listen(PORT, () => {

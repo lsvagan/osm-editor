@@ -3,7 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { Link, withRouter } from 'react-router-dom';
 function NavigationBar (props) {
-    console.log(props)
+    console.log('nav props :', props)
     return (
 
     <Navbar bg="dark" variant="dark" sticky="top">
