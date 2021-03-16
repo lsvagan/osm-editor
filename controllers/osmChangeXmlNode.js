@@ -14,10 +14,7 @@ const osmChangeXmlNode = (req, res, db) => {
 
         nodes.forEach(node => {
             nodesXml = nodesXml + node.xml;
-        })
-
-        let xml = nodes[0].xml;
-        
+        });
 
         let finish = convert.xml2js(`<osmChange version="0.6" generator="acme osm editor"><modify>${nodesXml}</modify></osmChange>`);
         console.log(finish);

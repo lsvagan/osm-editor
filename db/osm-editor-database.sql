@@ -43,7 +43,12 @@ CREATE TABLE `poi` (
 
 CREATE TABLE `node` (
   `id` bigint(11) NOT NULL,
-  `xml` text NOT NULL
+  `xml` text NOT NULL,
+  `name` char(255) DEFAULT NULL,
+  `street` char(255) DEFAULT NULL,
+  `housenumber` char(255) DEFAULT NULL,
+  `lat` decimal(65,7) DEFAULT NULL,
+  `lon` decimal(65,7) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
