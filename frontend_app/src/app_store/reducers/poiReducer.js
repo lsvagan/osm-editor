@@ -22,6 +22,7 @@ const poiReducer = ( state = poiInitalState, action = {} ) => {
             return Object.assign({}, state, { pois: state.pois.map(poi => {
                 if ( poi.id === action.payload.poiId ) {
                     let poiShowHideUpdated = Object.assign( {}, poi );
+                    console.log(action.payload.e.target)
                     poiShowHideUpdated.showOnMap = action.payload.e.target.checked;
                     return poiShowHideUpdated;
                 }

@@ -4,7 +4,7 @@ import OpenStreetMapMarker from './OpenStreetMapMarker';
 import NewPoiMarker from './NewPoiMarker';
 import Search from './MapSearch';
 import { connect } from 'react-redux';
-import { storeFetchedNodesFromOverpass } from '../app_store/actions';
+import { storeFetchedNodesFromOverpass, clearFetchedNodesFromOverpass } from '../app_store/actions';
 
 import overpass from 'query-overpass';
 import GeoJsonLayer from './GeoJsonLayer'
@@ -15,6 +15,11 @@ import GeoJsonLayer from './GeoJsonLayer'
       this.state = {
         
       }
+    }
+
+    componentWillUnmount () {
+      console.log('overpass map unmounted');
+      this.props.clearFetchedNodesFromOverpass();
     }
 
     queryNodes = (event) => {
@@ -98,8 +103,8 @@ import GeoJsonLayer from './GeoJsonLayer'
                 pointToLayer={this.customMarkerForGeojson}
               /> */}
               <GeoJsonLayer />
-              <OpenStreetMapMarker />
-              <NewPoiMarker />
+              {/* <OpenStreetMapMarker />
+              <NewPoiMarker /> */}
               <Search view = "geojson" queryNodes = {this.queryNodes}/>
 
           </Map>
@@ -110,7 +115,8 @@ import GeoJsonLayer from './GeoJsonLayer'
 
 const mapDispatchToProps = ( dispatch ) => {
   return {
-    storeFetchedNodesFromOverpass: (osmFeatures) => { dispatch(storeFetchedNodesFromOverpass(osmFeatures)) }
+    storeFetchedNodesFromOverpass: (osmFeatures) => { dispatch(storeFetchedNodesFromOverpass(osmFeatures)) },
+    clearFetchedNodesFromOverpass: () => { dispatch(clearFetchedNodesFromOverpass()) }
   }
 }
   

@@ -1,5 +1,6 @@
 import {
-    STORE_FETCHED_NODES_FROM_OVERPASS
+    STORE_FETCHED_NODES_FROM_OVERPASS,
+    CLEAR_FETCHED_NODES_FROM_OVERPASS
 } from '../constants';
 
 const initState = {
@@ -18,6 +19,9 @@ const geojsonReducer = ( state = initState, action={} ) => {
             let fetchedGeojsonData = { "features": fetchedNodesFeatures }
             return Object.assign({}, state, { geojsonData: fetchedGeojsonData});
         
+        case CLEAR_FETCHED_NODES_FROM_OVERPASS:
+            return initState;
+
         default:
             return state;
 

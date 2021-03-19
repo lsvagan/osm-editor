@@ -18,6 +18,7 @@ import { fetchPois } from './app_store/actions';
 import NewPoiInput from './NewPoiInput';
 import OverpassMap from './mapComponents/OverpassMap';
 import EditExistingPoiInput from './EditExistingPoiInput';
+import TableTabs from './TableTabs';
 
 class App extends Component {
 
@@ -36,10 +37,8 @@ class App extends Component {
           <Route path='/map/pois' component={() => {
             return (
               <div>
-                <TableOfPoi />
-                <a href='http://localhost:5000/api/osmChangeXml' target="blank">
-                  Osm Change Xml
-                </a>
+                {/* <TableOfPoi /> */}
+                <TableTabs />
             </div>
             )
           }}

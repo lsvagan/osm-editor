@@ -11,7 +11,10 @@ import {
     UPDATE_POI_IN_STATE,
     STORE_FETCHED_NODES_FROM_OVERPASS,
     DISPLAY_FETCHED_NODES_XML_FROM_OSM,
-    EDIT_XML
+    EDIT_XML,
+    FETCH_NODES,
+    CLEAR_XML_FOR_EDIT,
+    CLEAR_FETCHED_NODES_FROM_OVERPASS
     } from './constants';
 
 export const fetchPois = () => {
@@ -145,11 +148,16 @@ export const clearNewPoiInfoState = () => {
     }
 }
 
-
 export const storeFetchedNodesFromOverpass = (osmFeatures) => {
     return {
         type: STORE_FETCHED_NODES_FROM_OVERPASS,
         payload: osmFeatures
+    }
+}
+
+export const clearFetchedNodesFromOverpass = () => {
+    return {
+        type: CLEAR_FETCHED_NODES_FROM_OVERPASS
     }
 }
 
@@ -208,7 +216,36 @@ export const postNode = ( xmlObj, ownProps ) => {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            ownProps.history.push('/map/pois');
+            // ownProps.history.push('/map/pois');
+            dispatch(clearXmlInput());
+            
         })
+    }
+}
+
+const clearXmlInput = () => {
+    return{
+        type: CLEAR_XML_FOR_EDIT
+    }
+}
+
+export const fetchNodes = () => {
+
+    return(dispatch, getState) => {
+        //async action
+        fetch('http://localhost:5000/api/getAllNodes', {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+            })
+        .then((result) => result.json())
+        .then(data => dispatch(fetchNodeAction( data )))
+        }
+
+}
+
+const fetchNodeAction = (nodes) => {
+    return {
+        type: FETCH_NODES,
+        payload: nodes
     }
 }

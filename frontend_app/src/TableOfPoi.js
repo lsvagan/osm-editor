@@ -57,7 +57,10 @@ class TableOfPoi extends Component  {
                 </thead>
                 <tbody>
                     {poisList}
-                </tbody>    
+                </tbody>
+                <a href='http://localhost:5000/api/osmChangeXml' target="blank">
+                  Osm Change Xml
+                </a>   
             </Table>
             
         )

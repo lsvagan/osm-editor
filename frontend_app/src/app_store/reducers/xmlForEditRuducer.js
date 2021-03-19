@@ -1,6 +1,7 @@
 import { 
     DISPLAY_FETCHED_NODES_XML_FROM_OSM,
-    EDIT_XML
+    EDIT_XML,
+    CLEAR_XML_FOR_EDIT
     } from '../constants';
 
 const initState = {
@@ -20,6 +21,9 @@ const xmlForEditReducer = ( state=initState, action= {} ) => {
         case EDIT_XML:
             let updatedXml = Object.assign( {}, state.xml, { xmlString:action.payload }); 
             return Object.assign( {}, state, { xml: updatedXml } );
+
+        case CLEAR_XML_FOR_EDIT:
+            return initState;
 
         default:
             return state;
