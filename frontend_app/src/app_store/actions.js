@@ -1,6 +1,6 @@
 import { 
     FETCH_POIS,
-    TOGGLE_SHOW_HIDE_POI,
+    SHOW_HIDE_ON_MAP,
     DELETE_POI,
     ADD_NEW_POI,
     UPDATE_LAT_LON_ONCLICK_OR_ONSEARCH,
@@ -60,10 +60,16 @@ const addNewPoiToState = ( newPoi ) => {
     }
 }
 
-export const showHidePoi = ( e, poiId ) => {
+export const showHideOnMap = ( e, poiId, poiLat, poiLon ) => {
+   
+    let showHideObj = {
+        poiId,
+        positionLatLon: [poiLat, poiLon]
+    };
+
     return {
-        type: TOGGLE_SHOW_HIDE_POI,
-        payload: { e, poiId }
+        type: SHOW_HIDE_ON_MAP,
+        payload: { e, showHideObj }
     }
 }
 

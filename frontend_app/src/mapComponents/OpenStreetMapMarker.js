@@ -13,23 +13,22 @@ function OpenStreetMapMarker (props) {
             popupAnchor: [0, -36]
         });
 
-        const pois = props.pois.map(function(poi){
-            if(poi.showOnMap){
-                return(
-                    <Marker 
-                        position={[poi.lat, poi.lon]}
+        const pois = [];
+
+        for ( let key in props.showHideOnMap) {
+            console.log(key)
+            pois.push(
+                <Marker 
+                        position={props.showHideOnMap[key]}
                         icon = {mapPointer}
-                        key = {poi.id}
+                        key = {key}
                         >
                         <Popup popupOpen={true}>
-                            {poi.name}
+                            {'test name'}
                         </Popup>
                     </Marker>
-                )
-            } else {
-                return null
-            }
-        })
+            )
+        }
         
         return(
             <div>
@@ -41,7 +40,7 @@ function OpenStreetMapMarker (props) {
 
 const mapStateToProps = ( state ) => {
     return {
-        pois: state.poiReducer.pois
+        showHideOnMap: state.showHideOnMapReducer
     }
 }
 

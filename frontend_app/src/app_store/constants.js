@@ -29,3 +29,5 @@ export const EDIT_XML = 'EDIT_XML';
 export const FETCH_NODES = 'FETCH_NODES';
 
 export const CLEAR_XML_FOR_EDIT = 'CLEAR_XML_FOR_EDIT';
+
+export  const SHOW_HIDE_ON_MAP = 'SHOW_HIDE_ON_MAP';
