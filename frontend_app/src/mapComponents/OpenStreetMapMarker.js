@@ -16,7 +16,6 @@ function OpenStreetMapMarker (props) {
         const pois = [];
 
         for ( let key in props.showHideOnMap) {
-            console.log(key)
             pois.push(
                 <Marker 
                         position={props.showHideOnMap[key]}
@@ -28,6 +27,7 @@ function OpenStreetMapMarker (props) {
                         </Popup>
                     </Marker>
             )
+            console.log(pois.length)
         }
         
         return(

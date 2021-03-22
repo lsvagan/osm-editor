@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import RemovingDialog from './RemovingDialog';
 // import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchNodes } from './app_store/actions';
+import { fetchNodes, showHideOnMap } from './app_store/actions';
 
 
 class TableOfNode extends Component  {
@@ -15,7 +15,7 @@ class TableOfNode extends Component  {
     }
 
     render() {
-        const { nodes } = this.props;
+        const { nodes, showHideOnMap } = this.props;
 
         const nodesList = nodes.map((node) => {
             return (
@@ -26,7 +26,7 @@ class TableOfNode extends Component  {
                     <td>{node.lat}</td>
                     <td>{node.lon}</td>
                     <td>
-                        <input type="checkbox" />
+                        <input type="checkbox" onChange = { (e) => showHideOnMap(e, node.id, node.lat, node.lon) } />
                     </td>
                     {/* <td>
                         <Link to={`/map/editPoi/${poi.id}`}>
@@ -74,7 +74,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchNodes: () => { dispatch(fetchNodes()) }
+        fetchNodes: () => { dispatch(fetchNodes()) },
+        showHideOnMap: (e, nodeId, nodeLat, nodeLon) => { dispatch(showHideOnMap(e, nodeId, nodeLat, nodeLon)) }
     }
 }
 
