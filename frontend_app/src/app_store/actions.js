@@ -60,10 +60,11 @@ const addNewPoiToState = ( newPoi ) => {
     }
 }
 
-export const showHideOnMap = ( e, poiId, poiLat, poiLon ) => {
+export const showHideOnMap = ( e, poiId, poiLat, poiLon, poiName ) => {
    
     let showHideObj = {
         poiId,
+        poiName,
         positionLatLon: [poiLat, poiLon]
     };
 

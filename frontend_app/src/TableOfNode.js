@@ -26,7 +26,7 @@ class TableOfNode extends Component  {
                     <td>{node.lat}</td>
                     <td>{node.lon}</td>
                     <td>
-                        <input type="checkbox" onChange = { (e) => showHideOnMap(e, node.id, node.lat, node.lon) } />
+                        <input type="checkbox" onChange = { (e) => showHideOnMap(e, node.id, node.lat, node.lon, node.name) } />
                     </td>
                     {/* <td>
                         <Link to={`/map/editPoi/${poi.id}`}>
@@ -75,7 +75,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchNodes: () => { dispatch(fetchNodes()) },
-        showHideOnMap: (e, nodeId, nodeLat, nodeLon) => { dispatch(showHideOnMap(e, nodeId, nodeLat, nodeLon)) }
+        showHideOnMap: (e, nodeId, nodeLat, nodeLon, nodeName) => { dispatch(showHideOnMap(e, nodeId, nodeLat, nodeLon, nodeName)) }
     }
 }
 

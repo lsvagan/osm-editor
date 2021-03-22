@@ -14,8 +14,11 @@ const showHideOnMapReducer = ( state = initState, action = {} ) => {
 
             if(action.payload.e.target.checked) {
 
-                let { positionLatLon } = action.payload.showHideObj
-                return Object.assign( {}, state, { [poiId]: positionLatLon } )
+                let { poiName, positionLatLon } = action.payload.showHideObj;
+                return Object.assign( {}, state, { [poiId]: { 
+                    positionLatLon,
+                    poiName } 
+                } );
 
             } else {
 

@@ -20,7 +20,7 @@ class TableOfPoi extends Component  {
                     <td>{poi.lat.toFixed(7)}</td>
                     <td>{poi.lon.toFixed(7)}</td>
                     <td>
-                        <input type="checkbox" onChange={ (e) => showHideOnMap(e, poi.id, poi.lat, poi.lon) } />
+                        <input type="checkbox" onChange={ (e) => showHideOnMap(e, poi.id, poi.lat, poi.lon, poi.name) } />
                     </td>
                     <td>
                         <Link to={`/map/editPoi/${poi.id}`}>
@@ -76,7 +76,7 @@ const mapStateToProps = ( state ) => {
 
 const mapDispatchToProps = ( dispatch ) => {
     return {
-        showHideOnMap: (e, poiId, poiLat, poiLon) => dispatch(showHideOnMap(e, poiId, poiLat, poiLon))
+        showHideOnMap: (e, poiId, poiLat, poiLon, poiName) => dispatch(showHideOnMap(e, poiId, poiLat, poiLon, poiName))
     }
 }
 
