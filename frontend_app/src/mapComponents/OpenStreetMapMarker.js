@@ -18,14 +18,14 @@ function OpenStreetMapMarker (props) {
         for ( let key in props.showHideOnMap) {
             pois.push(
                 <Marker 
-                        position = { props.showHideOnMap[key].positionLatLon }
-                        icon = {mapPointer}
-                        key = {key}
-                        >
+                    position = { props.showHideOnMap[key].positionLatLon }
+                    icon = {mapPointer}
+                    key = {key}
+                    >
                         <Popup popupOpen={true}>
                             { props.showHideOnMap[key].poiName }
                         </Popup>
-                    </Marker>
+                </Marker>
             )
         }
         

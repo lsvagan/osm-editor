@@ -1,5 +1,3 @@
-const convert = require('xml-js');
-
 const osmChangeXmlNode = (req, res, db) => {
 
     let sql = 'SELECT xml FROM node';
@@ -16,13 +14,10 @@ const osmChangeXmlNode = (req, res, db) => {
             nodesXml = nodesXml + node.xml;
         });
 
-        let finish = convert.xml2js(`<osmChange version="0.6" generator="acme osm editor"><modify>${nodesXml}</modify></osmChange>`);
-        console.log(finish);
-        let finalFinish = convert.js2xml(finish);
-        console.log(finalFinish);
+        let xmlResponse = `<osmChange version="0.6" generator="acme osm editor"><modify>${nodesXml}</modify></osmChange>`;
 
-        res.set('Content-Type', 'text/xml');
-        res.send(finalFinish);
+        res.set("Content-Type", "text/xml");
+        res.send(xmlResponse);
             
     })
 
