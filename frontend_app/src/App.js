@@ -58,6 +58,16 @@ class App extends Component {
           }}
           />
 
+          <Route path='/overpass/editNode/:nodeId' component={(props) => {
+            return (
+              <div>
+                <OverpassMap />
+                <EditExistingPoiInput view='edit' {...props} />
+              </div>
+            )
+          }}
+          />
+
         </Container>
       </BrowserRouter>
 

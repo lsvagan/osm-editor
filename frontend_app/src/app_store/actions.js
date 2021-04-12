@@ -14,7 +14,10 @@ import {
     EDIT_XML,
     FETCH_NODES,
     CLEAR_XML_FOR_EDIT,
-    CLEAR_FETCHED_NODES_FROM_OVERPASS
+    ADD_NEW_NODE_TO_STATE,
+    CLEAR_FETCHED_NODES_FROM_OVERPASS,
+    SELECT_NODE_FOR_EDIT,
+    UPDATE_NODE_IN_STATE
     } from './constants';
 
 export const fetchPois = () => {
@@ -225,7 +228,7 @@ export const postNode = ( xmlObj, ownProps ) => {
             console.log(data);
             // ownProps.history.push('/map/pois');
             dispatch(clearXmlInput());
-            
+            dispatch(addNewNodeToState(data[0]))
         })
     }
 }
@@ -233,6 +236,13 @@ export const postNode = ( xmlObj, ownProps ) => {
 const clearXmlInput = () => {
     return{
         type: CLEAR_XML_FOR_EDIT
+    }
+}
+
+const addNewNodeToState = (nodeObj) => {
+    return {
+        type: ADD_NEW_NODE_TO_STATE,
+        payload: nodeObj
     }
 }
 
@@ -254,5 +264,35 @@ const fetchNodeAction = (nodes) => {
     return {
         type: FETCH_NODES,
         payload: nodes
+    }
+}
+
+export const selectNodeForEdit = (xmlForEdit) => {
+    return {
+        type: SELECT_NODE_FOR_EDIT,
+        payload: xmlForEdit
+    }
+}
+
+export const updateNode = (xmlObj, ownProps) => {
+    console.log(xmlObj)
+    return(dispatch, getState) => {
+        fetch('http://localhost:5000/api/updateNode', {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(xmlObj)
+        })
+        .then(response => response.json())
+        .then(data => {
+            dispatch(updateNodeInState(data[0]));
+            ownProps.history.push('/map/pois');
+        })
+    }
+}
+
+const updateNodeInState = (xmlObj) => {
+    return {
+        type: UPDATE_NODE_IN_STATE,
+        payload: xmlObj
     }
 }

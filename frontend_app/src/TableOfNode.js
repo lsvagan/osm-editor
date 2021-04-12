@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import RemovingDialog from './RemovingDialog';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchNodes, showHideOnMap } from './app_store/actions';
 
@@ -28,13 +28,13 @@ class TableOfNode extends Component  {
                     <td>
                         <input type="checkbox" onChange = { (e) => showHideOnMap(e, node.id, node.lat, node.lon, node.name) } />
                     </td>
-                    {/* <td>
-                        <Link to={`/map/editPoi/${poi.id}`}>
+                    <td>
+                        <Link to={`/overpass/editNode/${node.id}`}>
                             <Button size="sm" variant="outline-info">
                                 Edit
                             </Button>
                         </Link>
-                    </td> */}
+                    </td>
                 </tr>
             )
         });

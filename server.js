@@ -17,6 +17,7 @@ const osmChangeXml = require('./controllers/osmChangeXml');
 const addOsmNode = require('./controllers/addOsmNode');
 const osmChangeXmlNode = require('./controllers/osmChangeXmlNode');
 const getAllNodes = require('./controllers/getAllNodes');
+const updateNode = require('./controllers/updateNode');
 
 //cors Middleware
 server.use(cors());
@@ -73,6 +74,8 @@ server.get('/api/osmChangeXmlNode', (req, res) => { osmChangeXmlNode(req, res, d
 //gets all nodes
 server.get('/api/getAllNodes', (req, res) => { getAllNodes(req, res, db) });
 
+//update node and return updated node
+server.put('/api/updateNode', (req, res) => { updateNode(req, res, db) });
 
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)

@@ -6,9 +6,8 @@ import Button from 'react-bootstrap/Button';
 
 import './EditExistingPoiInput.css';
 
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { editXml, postNode } from './app_store/actions';
+import { editXml, postNode, selectNodeForEdit, updateNode } from './app_store/actions';
 
 class EditExistingPoiInput extends React.Component {
     constructor(props) {
@@ -46,8 +45,26 @@ class EditExistingPoiInput extends React.Component {
     }
 
     submitXml = () => {
-        console.log('submited! ', this.props.xml);
-        this.props.postNode(this.props.xml);
+
+        if(this.props.view === 'edit') {
+            this.props.updateNode(this.props.xml);
+        }else {
+            this.props.postNode(this.props.xml);
+        }
+
+    }
+
+    componentDidMount () {
+
+        const  {view, allNodes, selectNodeForEdit } = this.props;
+        
+        if(view === 'edit') {
+
+            let nodeId = this.props.match.params.nodeId;
+            let xmlForEdit = allNodes.find(node => node.id === parseInt(nodeId));
+            let {id, xml} = xmlForEdit;
+            selectNodeForEdit({id, xmlString: xml});
+        }
     }
 
     render() {
@@ -75,7 +92,7 @@ class EditExistingPoiInput extends React.Component {
                     className = "mt-3 mb-3"
                     onClick = {this.inputErrorHandler}
                 > 
-                Save
+                    {this.props.view === 'edit' ? 'Edit' : 'Save'}
                 </Button>
         
             </Form>
@@ -88,15 +105,18 @@ class EditExistingPoiInput extends React.Component {
 
 const mapStateToProps = ( state ) => {
     return {
-        xml: state.xmlForEditReducer.xml
+        xml: state.xmlForEditReducer.xml,
+        allNodes: state.nodeReducer.nodes
     }
 }
 
 const mapDispatchToProps = ( dispatch, ownProps ) => {
     return {
         editXml: (e) => { dispatch(editXml(e)) },
-        postNode: (xml) => { dispatch(postNode(xml, ownProps)) }
+        postNode: (xml) => { dispatch(postNode(xml, ownProps)) },
+        updateNode: (xmlObj) => { dispatch(updateNode(xmlObj, ownProps))},
+        selectNodeForEdit: (xmlForEdit) => { dispatch(selectNodeForEdit(xmlForEdit)) }
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditExistingPoiInput));
+export default connect(mapStateToProps, mapDispatchToProps)(EditExistingPoiInput);
