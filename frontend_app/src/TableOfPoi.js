@@ -43,26 +43,26 @@ class TableOfPoi extends Component  {
         });
     
         return(
-            
-            <Table responsive striped bordered>
-                <thead>
-                    <tr>
-                        <th>Place name</th>
-                        <th>Street</th>
-                        <th>Amenity</th>
-                        <th>Latitude</th>
-                        <th>Longitude</th>
-                        <th>Show/hide</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {poisList}
-                </tbody>
+            <>
+                <Table responsive striped bordered>
+                    <thead>
+                        <tr>
+                            <th>Place name</th>
+                            <th>Street</th>
+                            <th>Amenity</th>
+                            <th>Latitude</th>
+                            <th>Longitude</th>
+                            <th>Show/hide</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {poisList}
+                    </tbody>
+                </Table>
                 <a href='http://localhost:5000/api/osmChangeXml' target="blank">
-                  Osm Change Xml
-                </a>   
-            </Table>
-            
+                Osm Change Xml
+                </a>
+            </>
         )
     }
     
