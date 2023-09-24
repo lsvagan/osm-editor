@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import RemovingDialog from './RemovingDialog';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchNodes, showHideOnMap } from './app_store/actions';
@@ -40,25 +39,27 @@ class TableOfNode extends Component  {
         });
         return(
             
-            <Table responsive striped bordered>
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>Place name</th>
-                        <th>Street</th>
-                        <th>Latitude</th>
-                        <th>Longitude</th>
-                        <th>Show/hide</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {nodesList}
-                </tbody>
+            <>
+                <Table responsive striped bordered>
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Place name</th>
+                            <th>Street</th>
+                            <th>Latitude</th>
+                            <th>Longitude</th>
+                            <th>Show/hide</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {nodesList}
+                    </tbody>
+                    
+                </Table>
                 <a href='http://localhost:5000/api/osmChangeXmlNode' target="blank">
-                  Osm Change Xml Nodes
+                    Osm Change Xml Nodes
                 </a>
-            </Table>
-
+            </>
         )
        
     }

@@ -1,3 +1,7 @@
+# prerequisites
+# node.js v12.14.0
+# mysql 8.0.34
+
 # use osm-editor-database.sql file in /db to setup database
 
 # Install dependencies for server

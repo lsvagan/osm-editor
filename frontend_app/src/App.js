@@ -1,17 +1,12 @@
 import React, {Component} from 'react';
-import TableOfPoi from './TableOfPoi';
 import NavigationBar from './NavigationBar';
 import './App.css';
 
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
 
-// import MapAndInputContainer from './MapAndInputContainer';
 import MapComponent from './mapComponents/MapComponent';
 
 import { BrowserRouter, Route } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { fetchPois } from './app_store/actions';

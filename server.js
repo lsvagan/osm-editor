@@ -34,7 +34,7 @@ const db = mysql.createConnection({
     //password: 'your_password',
     supportBigNumbers: true,
     timezone: 'utc',
-    database: 'osm-editor-database'
+    database: 'osmEditorDatabase'
 });
 
 db.connect((err)=>{
