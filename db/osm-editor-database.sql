@@ -68,6 +68,11 @@ ALTER TABLE `poi`
   MODIFY `id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99000000000;
 COMMIT;
 
+/*If you have issue starting server app caused by "Client does not support authentication protocol" then run following statements with password you set for root user*/;
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'password_for_roog'; 
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password_for_root';
+FLUSH PRIVILEGES;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
