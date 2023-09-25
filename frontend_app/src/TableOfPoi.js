@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import RemovingDialog from './RemovingDialog';
@@ -7,20 +7,30 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { showHideOnMap } from './app_store/actions';
 
-class TableOfPoi extends Component  {
-
+class TableOfPoi extends Component {
     render() {
-        const {pois, showHideOnMap} = this.props;
+        const { pois, showHideOnMap } = this.props;
         const poisList = pois.map((poi) => {
             return (
-                <tr key= {poi.id}>
+                <tr key={poi.id}>
                     <td>{poi.name}</td>
                     <td>{`${poi.street} ${poi.housenumber}`}</td>
                     <td>{poi.amenity}</td>
                     <td>{poi.lat.toFixed(7)}</td>
                     <td>{poi.lon.toFixed(7)}</td>
                     <td>
-                        <input type="checkbox" onChange={ (e) => showHideOnMap(e, poi.id, poi.lat, poi.lon, poi.name) } />
+                        <input
+                            type="checkbox"
+                            onChange={(e) =>
+                                showHideOnMap(
+                                    e,
+                                    poi.id,
+                                    poi.lat,
+                                    poi.lon,
+                                    poi.name
+                                )
+                            }
+                        />
                     </td>
                     <td>
                         <Link to={`/map/editPoi/${poi.id}`}>
@@ -30,19 +40,19 @@ class TableOfPoi extends Component  {
                         </Link>
                     </td>
                     <td>
-                        <RemovingDialog 
-                            poiName = {poi.name} 
-                            poiStreet = {poi.street}
-                            poiHousenumber = {poi.housenumber}
-                            poiId = {poi.id}
-                            removePoiFun = { this.removePoiFun }
+                        <RemovingDialog
+                            poiName={poi.name}
+                            poiStreet={poi.street}
+                            poiHousenumber={poi.housenumber}
+                            poiId={poi.id}
+                            removePoiFun={this.removePoiFun}
                         />
                     </td>
                 </tr>
-            )
+            );
         });
-    
-        return(
+
+        return (
             <>
                 <Table responsive striped bordered>
                     <thead>
@@ -55,29 +65,27 @@ class TableOfPoi extends Component  {
                             <th>Show/hide</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {poisList}
-                    </tbody>
+                    <tbody>{poisList}</tbody>
                 </Table>
-                <a href='http://localhost:5000/api/osmChangeXml' target="blank">
-                Osm Change Xml
+                <a href="http://localhost:5000/api/osmChangeXml" target="blank">
+                    Osm Change Xml
                 </a>
             </>
-        )
+        );
     }
-    
 }
 
-const mapStateToProps = ( state ) => {
+const mapStateToProps = (state) => {
     return {
-        pois: state.poiReducer.pois
-    }
+        pois: state.poiReducer.pois,
+    };
 };
 
-const mapDispatchToProps = ( dispatch ) => {
+const mapDispatchToProps = (dispatch) => {
     return {
-        showHideOnMap: (e, poiId, poiLat, poiLon, poiName) => dispatch(showHideOnMap(e, poiId, poiLat, poiLon, poiName))
-    }
-}
+        showHideOnMap: (e, poiId, poiLat, poiLon, poiName) =>
+            dispatch(showHideOnMap(e, poiId, poiLat, poiLon, poiName)),
+    };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableOfPoi);

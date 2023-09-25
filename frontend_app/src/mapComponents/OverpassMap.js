@@ -1,48 +1,49 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Map, TileLayer } from 'react-leaflet';
 import OpenStreetMapMarker from './OpenStreetMapMarker';
 import NewPoiMarker from './NewPoiMarker';
 import Search from './MapSearch';
 import { connect } from 'react-redux';
-import { storeFetchedNodesFromOverpass, clearFetchedNodesFromOverpass } from '../app_store/actions';
+import {
+    storeFetchedNodesFromOverpass,
+    clearFetchedNodesFromOverpass,
+} from '../app_store/actions';
 
 import overpass from 'query-overpass';
-import GeoJsonLayer from './GeoJsonLayer'
+import GeoJsonLayer from './GeoJsonLayer';
 
-  class OverpassMap extends Component {
-    constructor(props){
-      super(props);
-      this.state = {
-        
-      }
+class OverpassMap extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
     }
 
-    componentWillUnmount () {
-      console.log('overpass map unmounted');
-      this.props.clearFetchedNodesFromOverpass();
+    componentWillUnmount() {
+        console.log('overpass map unmounted');
+        this.props.clearFetchedNodesFromOverpass();
     }
 
     queryNodes = (event) => {
         console.log(event);
-        let { lat, lng} = event.latlng;
-        console.log(lat ,lng)
+        let { lat, lng } = event.latlng;
+        console.log(lat, lng);
 
         const query = `[out:json];
           node(around:40, ${lat}, ${lng});
           out;`;
         const options = {
-        flatProperties: true,
-        overpassUrl: 'https://overpass-api.de/api/interpreter'
+            flatProperties: true,
+            overpassUrl: 'https://overpass-api.de/api/interpreter',
         };
         overpass(query, this.dataHandler, options);
-    }
+    };
 
     dataHandler = (error, osmData) => {
         if (!error && osmData.features !== undefined) {
-            console.log(osmData)
+            console.log(osmData);
             this.props.storeFetchedNodesFromOverpass(osmData.features);
         }
-      };
+    };
 
     // onEachNode = (node, layer) => {
 
@@ -52,18 +53,18 @@ import GeoJsonLayer from './GeoJsonLayer'
     //       opacity: 0.7
     //   })
     //   layer.bindPopup(node.id);
-     
+
     //   layer.on({
     //       click: (event) => {
-            
+
     //           event.target.setStyle({
     //               color: 'blue',
     //               color: 'orange'
     //           });
-              
+
     //       }
     //   })
-    
+
     // }
 
     // customMarkerForGeojson = (features, latlng) => {
@@ -78,47 +79,49 @@ import GeoJsonLayer from './GeoJsonLayer'
     //     opacity: 0.6
     //   });
     // }
-    
+
     render() {
-      
-      return (
-        <div>
-          <Map className="leflet-map"
-            center={[44.8110, 20.4625]}
-            zoom={13}
-            maxZoom={20}
-            onClick={this.queryNodes}
-            >
-              <TileLayer
-                attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                maxNativeZoom={19}
-                maxZoom={20}
-              />
-              {/* <GeoJSON
+        return (
+            <div>
+                <Map
+                    className="leflet-map"
+                    center={[44.811, 20.4625]}
+                    zoom={13}
+                    maxZoom={20}
+                    onClick={this.queryNodes}
+                >
+                    <TileLayer
+                        attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        maxNativeZoom={19}
+                        maxZoom={20}
+                    />
+                    {/* <GeoJSON
                 // attribution="Capa de Hospitales de ESRI"
                 // key='random key'
                 data={this.state.geojson}
                 onEachFeature={this.onEachNode}
                 pointToLayer={this.customMarkerForGeojson}
               /> */}
-              <GeoJsonLayer />
-              {/* <OpenStreetMapMarker />
+                    <GeoJsonLayer />
+                    {/* <OpenStreetMapMarker />
               <NewPoiMarker /> */}
-              <Search view = "geojson" queryNodes = {this.queryNodes}/>
-
-          </Map>
-        </div>
-      );
+                    <Search view="geojson" queryNodes={this.queryNodes} />
+                </Map>
+            </div>
+        );
     }
-  }
-
-const mapDispatchToProps = ( dispatch ) => {
-  return {
-    storeFetchedNodesFromOverpass: (osmFeatures) => { dispatch(storeFetchedNodesFromOverpass(osmFeatures)) },
-    clearFetchedNodesFromOverpass: () => { dispatch(clearFetchedNodesFromOverpass()) }
-  }
 }
-  
-  export default connect(null, mapDispatchToProps)(OverpassMap);
-  
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        storeFetchedNodesFromOverpass: (osmFeatures) => {
+            dispatch(storeFetchedNodesFromOverpass(osmFeatures));
+        },
+        clearFetchedNodesFromOverpass: () => {
+            dispatch(clearFetchedNodesFromOverpass());
+        },
+    };
+};
+
+export default connect(null, mapDispatchToProps)(OverpassMap);

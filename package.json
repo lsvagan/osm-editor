@@ -1,15 +1,13 @@
 {
   "name": "project__backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "osm editor - backend application",
   "scripts": {
     "client-install": "cd frontend_app && npm install",
     "start": "node server.js",
     "server": "nodemon server.js",
-    "client": "cd frontend_app && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client": "cd frontend_app && npm run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",
