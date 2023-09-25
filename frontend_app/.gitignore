@@ -5,6 +5,8 @@ debug.log
 *.log
 
 # dependencies
+/dist
+.parcel-cache
 /node_modules
 /.pnp
 .pnp.js

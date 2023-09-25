@@ -1,5 +1,5 @@
 # prerequisites
-# node.js v12.14.0
+# node.js v18.18.0
 # mysql 8.0.34
 
 # use osm-editor-database.sql file in /db to setup database
@@ -20,5 +20,3 @@ npm run server
 npm run client
 
 #production build
-navigate to /frontend_app directory and than run command npm run build
-open localhost:5000/map/pois in browser

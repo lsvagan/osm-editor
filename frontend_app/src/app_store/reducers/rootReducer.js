@@ -6,6 +6,13 @@ import xmlForEditReducer from './xmlForEditRuducer';
 import nodeReducer from './nodeReducer';
 import showHideOnMapReducer from './showHideOnMapReducer';
 
-const rootReducer = combineReducers({ poiReducer, newPoiReducer, geojsonDataReducer, xmlForEditReducer, nodeReducer, showHideOnMapReducer });
+const rootReducer = combineReducers({
+    poiReducer,
+    newPoiReducer,
+    geojsonDataReducer,
+    xmlForEditReducer,
+    nodeReducer,
+    showHideOnMapReducer,
+});
 
 export default rootReducer;
