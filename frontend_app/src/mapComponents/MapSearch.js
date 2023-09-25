@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import { updateLatLon } from '../app_store/actions';
 
-class Search extends Component {
+class MapSearch extends Component {
     componentDidMount() {
         const view = this.props.view;
         const queryNodes = this.props.queryNodes;
@@ -20,12 +20,9 @@ class Search extends Component {
             searchBounds,
             zoomToResult: true,
         }).addTo(map);
-        //const results = new L.LayerGroup().addTo(map);
 
         searchControl.on('results', function (data) {
-            //results.clearLayers();
             for (let i = data.results.length - 1; i >= 0; i--) {
-                //results.addLayer(L.marker(data.results[i].latlng));
                 console.log(data);
 
                 if (view === 'geojson') {
@@ -50,5 +47,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-//export default Search;
-export default withLeaflet(connect(null, mapDispatchToProps)(Search));
+export default withLeaflet(connect(null, mapDispatchToProps)(MapSearch));
