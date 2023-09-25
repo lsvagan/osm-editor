@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Map, TileLayer } from 'react-leaflet';
 import OpenStreetMapMarker from './OpenStreetMapMarker';
 import NewPoiMarker from './NewPoiMarker';
-import Search from './MapSearch';
+import MapSearch from './MapSearch';
 import { connect } from 'react-redux';
 import { updateLatLon } from '../app_store/actions';
 
@@ -26,7 +26,7 @@ class MapComponent extends Component {
 
                     <OpenStreetMapMarker />
                     <NewPoiMarker />
-                    <Search />
+                    <MapSearch />
                 </Map>
             </div>
         );

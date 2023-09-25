@@ -12,23 +12,7 @@ class GeoJsonLayer extends React.Component {
     }
 
     onEachNode = (node, layer) => {
-        // console.log(node, layer);
-        // layer.setStyle({
-        //     weight: 7,
-        //     opacity: 0.7
-        // })
         layer.bindPopup(node.id);
-
-        // layer.on({
-        //     click: (event) => {
-
-        //         event.target.setStyle({
-        //             color: 'blue',
-        //             color: 'orange'
-        //         });
-
-        //     }
-        // })
 
         layer.on({
             click: (event) => {

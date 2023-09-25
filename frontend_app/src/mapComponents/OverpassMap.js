@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Map, TileLayer } from 'react-leaflet';
-import OpenStreetMapMarker from './OpenStreetMapMarker';
-import NewPoiMarker from './NewPoiMarker';
-import Search from './MapSearch';
+import MapSearch from './MapSearch';
 import { connect } from 'react-redux';
 import {
     storeFetchedNodesFromOverpass,
@@ -40,45 +38,10 @@ class OverpassMap extends Component {
 
     dataHandler = (error, osmData) => {
         if (!error && osmData.features !== undefined) {
-            console.log(osmData);
+            console.log('osmData: ', osmData);
             this.props.storeFetchedNodesFromOverpass(osmData.features);
         }
     };
-
-    // onEachNode = (node, layer) => {
-
-    //   console.log(node, layer);
-    //   layer.setStyle({
-    //       weight: 7,
-    //       opacity: 0.7
-    //   })
-    //   layer.bindPopup(node.id);
-
-    //   layer.on({
-    //       click: (event) => {
-
-    //           event.target.setStyle({
-    //               color: 'blue',
-    //               color: 'orange'
-    //           });
-
-    //       }
-    //   })
-
-    // }
-
-    // customMarkerForGeojson = (features, latlng) => {
-    //   const geojsonIcon = L.icon({
-    //     iconUrl: require('./geojsonMarker.png'),
-    //     iconSize: [25, 25],
-    //     // iconAnchor: [10, 36],
-    //     // popupAnchor: [0, -36]
-    //   });
-    //   return L.marker(latlng, {
-    //     icon: geojsonIcon,
-    //     opacity: 0.6
-    //   });
-    // }
 
     render() {
         return (
@@ -96,17 +59,8 @@ class OverpassMap extends Component {
                         maxNativeZoom={19}
                         maxZoom={20}
                     />
-                    {/* <GeoJSON
-                // attribution="Capa de Hospitales de ESRI"
-                // key='random key'
-                data={this.state.geojson}
-                onEachFeature={this.onEachNode}
-                pointToLayer={this.customMarkerForGeojson}
-              /> */}
                     <GeoJsonLayer />
-                    {/* <OpenStreetMapMarker />
-              <NewPoiMarker /> */}
-                    <Search view="geojson" queryNodes={this.queryNodes} />
+                    <MapSearch view="geojson" queryNodes={this.queryNodes} />
                 </Map>
             </div>
         );
